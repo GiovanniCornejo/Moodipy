@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="Moodipy",
     version="0.1",
-    packages=["Moodipy", "SpotifyAuth", "SentimentAnalysis", "PlaylistGenerator", "SongAnalysis", "GUI"],
+    packages=["Moodipy", "GUI"],
     url="https://github.com/dianas11xx/Moodify/",
     author="Noteworthy",
     description="use sentiment analysis to create a playlist that matches someone's mood and also predict songs to rise in popularity.",
