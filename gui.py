@@ -3,24 +3,28 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
-class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.title = 'Moodipy'
+class MoodAnalyzerPg(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.title = "Mood Analyzer"
         self.left = 9
         self.top = 100
-        self.width = 3820
-        self.height = 1900
+        self.width = 1000
+        self.height = 610
         self.initUI()
-
 
     def initUI(self):
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-        self.UiComponents()
+        self.setGeometry(self.top, self.left, self.width, self.height)
+        self.setStyleSheet("background-color: #8599ff")
+        self.mood_window()
         self.show()
-        self.setStyleSheet("background-color: #ffdb94")
+
+    def mood_window(self):
+        button2 = QPushButton(self)
+        button2.setGeometry(1910, 1490, 130, 90)
+        button2.setStyleSheet("border-image : url(arrow.png);")
+        self.setLabel("How are you feeling?", False, 10, 10, 370, 39, 20, "#8599ff", True)
 
     def setLabel(self, text, center, left, top, width, height, ftSize, bkColor, bold):
         label = QLabel(text, self)
@@ -34,42 +38,60 @@ class MainWindow(QMainWindow):
         label.setFont(QFont('Segoe UI', ftSize))
 
 
-    def UiComponents(self):
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.title = "Moodipy"
+        self.left = 9
+        self.top = 100
+        self.width = 1000
+        self.height = 610
+        self.initUI()
+
+
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.top, self.left, self.width, self.height)
+        self.setStyleSheet("background-color: #ffdb94")
+        self.main_window()
+        self.show()
+
+    def main_window(self):
         button = QPushButton(self)
-        button.setGeometry(1910, 1490, 130, 90)
+        button.setGeometry(480, 450, 40, 20)
         button.setStyleSheet("border-image : url(arrow.png);")
-        #button.setStyleSheet("border-radius: 50; border :8px solid pink")
-        button.clicked.connect(self.click1)
-
-        self.setLabel("Welcome to", True, 1460, 500, 1000, 510, 30, "white", False)
-        self.setLabel("Moodipy", True, 1460, 830, 1000, 260, 50, "white", True)
-        self.setLabel("Generating playlists that express how you feel", True, 1460, 1200, 1000, 100, 12, "white", False)
-
+        button.clicked.connect(self.next_page)
+        self.setLabel("Welcome to", True, 390, 200, 220, 35, 19, "white", False)
+        self.setLabel("Moodipy", True, 380, 260, 230, 58, 35, "white", True)
+        self.setLabel("Generating playlists that express how you feel", True, 350, 380, 310, 20, 10, "white", False)
 
 
     def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setPen(QPen(Qt.white, 5, Qt.SolidLine))
-        painter.setBrush(QBrush(QBrush(Qt.white, Qt.SolidPattern)))
-        painter.drawEllipse(1220, 180, 1500, 1500)
+        paint = QPainter(self)
+        paint.setPen(QPen(Qt.white, 5, Qt.SolidLine))
+        paint.setBrush(QBrush(Qt.white, Qt.SolidPattern))
+        paint.drawEllipse(270, 70, 450, 450)
 
+    def setLabel(self, text, center, left, top, width, height, ftSize, bkColor, bold):
+        label = QLabel(text, self)
+        if center:
+            label.setAlignment(Qt.AlignCenter)
+        label.setGeometry(left, top, width, height)
+        style = "background-color: "+bkColor+";"
+        if bold:
+            style = style+"font-weight: bold"
+        label.setStyleSheet(style)
+        label.setFont(QFont('Segoe UI', ftSize))
 
-    def click1(self):
-        print("dumdum")
-        self.setWindowTitle("Mood Analyzer")
-        self.setGeometry(self.left, self.top, self.width, self.height)
-        self.UiComponents2()
-        self.show()
-        self.setStyleSheet("background-color: #8599ff")
+    def next_page(self):    
+        self.nextPg = MoodAnalyzerPg()
+        self.nextPg.show()
+        self.hide()
 
-    def UiComponents2(self):
-        button2 = QPushButton(self)
-        button2.setGeometry(1910, 1490, 130, 90)
-        button2.setStyleSheet("border-image : url(arrow.png);")
-        self.setLabel("How are you feeling?", False, 110, 110, 1000, 510, 40, "white", True)
-
-
-if __name__=='__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
+
+
