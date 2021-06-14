@@ -1,3 +1,3 @@
 Setup:
 
-Sudo apt install PyQt5
+sudo apt install PyQt5
