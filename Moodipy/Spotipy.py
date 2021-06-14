@@ -48,7 +48,7 @@ class User(Spotify):
             raise Exception("You must enter a playlist name")
 
         playlist_id = None
-        playlists = self._user_client.user_playlists(self.user_id)
+        playlists = self._user_client.user_playlists(self._user_id)
         for playlist in playlists['items']:
             if playlist['name'] == playlist_name:
                 playlist_id = playlist['id']
