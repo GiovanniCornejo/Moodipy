@@ -18,8 +18,6 @@ class MoodAnalyzerPg(QMainWindow):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
-        ##8599ff
-        #99baff
         self.setStyleSheet("background-color:#abbdff")
         self.mood_window()
         self.show()
