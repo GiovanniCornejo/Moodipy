@@ -1,3 +1,5 @@
+# fixing up, not done
+
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
