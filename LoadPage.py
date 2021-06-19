@@ -17,10 +17,6 @@ class LoadPg(QMainWindow):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
-        ##8599ff
-        # ffccff
-        # e0ebff
-        ##e0d6ff
         self.setStyleSheet("background-color: #d4d4ff")
         self.mood_window()
         self.show()
