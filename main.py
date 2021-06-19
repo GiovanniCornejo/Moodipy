@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         label.setStyleSheet(style)
         label.setFont(QFont('Segoe UI', ftSize))
 
-    def next_page(self):                                             # <===
+    def next_page(self):                                    
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
         self.hide()
