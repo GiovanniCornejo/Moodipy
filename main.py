@@ -2,7 +2,8 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from MoodAnalyzerGUI import MoodAnalyzerPg
+from UserSummary import Person
+from UserLogin import UserLoginPG
 
 
 class MainWindow(QMainWindow):
@@ -28,9 +29,9 @@ class MainWindow(QMainWindow):
         button.setGeometry(480, 450, 40, 20)
         button.setStyleSheet("border-image : url(arrow.png);")
         button.clicked.connect(self.next_page)
-        self.setLabel("Welcome to", True, 390, 200, 220, 35, 19, "white", False)
-        self.setLabel("Moodipy", True, 380, 260, 230, 58, 35, "white", True)
-        self.setLabel("Generating playlists that express how you feel", True, 350, 380, 310, 20, 10, "white", False)
+        Person.setLabel(self, "Welcome to", True, 390, 200, 220, 35, 19, "white", False,'Consolas')
+        Person.setLabel(self, "Moodipy", True, 380, 260, 230, 58, 35, "white", True, 'Segoe UI')
+        Person.setLabel(self, "Generating playlists that express how you feel", True, 335, 375, 338, 20, 9, "white", False,'Consolas')
 
 
     def paintEvent(self, event):
@@ -38,17 +39,6 @@ class MainWindow(QMainWindow):
         paint.setPen(QPen(Qt.white, 5, Qt.SolidLine))
         paint.setBrush(QBrush(Qt.white, Qt.SolidPattern))
         paint.drawEllipse(270, 70, 450, 450)
-
-    def setLabel(self, text, center, left, top, width, height, ftSize, bkColor, bold):
-        label = QLabel(text, self)
-        if center:
-            label.setAlignment(Qt.AlignCenter)
-        label.setGeometry(left, top, width, height)
-        style = "background-color: "+bkColor+";"
-        if bold:
-            style = style+"font-weight: bold"
-        label.setStyleSheet(style)
-        label.setFont(QFont('Segoe UI', ftSize))
 
     def next_page(self):                                    
         self.nextPg = MoodAnalyzerPg()
