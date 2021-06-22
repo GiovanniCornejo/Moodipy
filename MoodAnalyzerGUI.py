@@ -1,8 +1,9 @@
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from LoadPage import LoadPg
+from moodTrendsPg import MoodTrends
+from moodAnalyzer import main
+from UserSummary import Person
 
 
 class MoodAnalyzerPg(QMainWindow):
@@ -24,10 +25,10 @@ class MoodAnalyzerPg(QMainWindow):
 
     def mood_window(self):
         # Labels
-        self.setLabel("How are you feeling?", False, 20, 10, 370, 39, 20, "#abbdff", True)
-        self.setLabel("Write about your day...", False, 120, 70, 300, 35, 15, "#abbdff", False)
-        self.setLabel("Find your mood", False, 670, 70, 300, 35, 15, "#abbdff", False)
-        self.setLabel("", False, 20, 58, 320, 3, 0, "black", False)
+        Person.setLabel(self,"How are you feeling?", False, 20, 10, 370, 39, 20, "#abbdff", True, 'Segoe UI')
+        Person.setLabel(self,"Write about your day...", False, 120, 70, 300, 35, 15, "#abbdff", False, 'Segoe UI')
+        Person.setLabel(self, "Find your mood", False, 670, 70, 300, 35, 15, "#abbdff", False, 'Segoe UI')
+        Person.setLabel(self, "", False, 20, 58, 320, 3, 0, "black", False, 'Segoe UI')
         # Textbox
         self.text = QTextEdit(self)
         self.text.setGeometry(60, 100, 350, 450)
@@ -59,7 +60,7 @@ class MoodAnalyzerPg(QMainWindow):
         # Mood image
         self.mood_img = QLabel(self)
         self.mood_img.setGeometry(690, 200, 130, 130)
-        self.mood_img.setStyleSheet("border-image : url(awful.jpeg);background-color: #99acff;")
+        self.mood_img.setStyleSheet("border-image : url(imgs/awful.jpeg);background-color: #99acff;")
         # Mood label
         self.mood = QLabel('awful', self)
         self.mood.setGeometry(740, 350, 50, 30)
@@ -74,31 +75,24 @@ class MoodAnalyzerPg(QMainWindow):
 
     def updateMood(self, value):
         moods = ["awful", "bad", "okay", "happy", "excited", "love"]
-        self.mood_img.setStyleSheet("border-image : url(%s.jpeg);" % moods[value])
+        self.mood_img.setStyleSheet("border-image : url(imgs/%s.jpeg);" % moods[value])
         self.mood.setText(moods[value])
 
     def on_click(self):
         print("your text: %s" % self.text.toPlainText())
-        self.nextPg = LoadPg()
+        file = open("read.txt", "w")
+        file.write(self.text.toPlainText())
+        file.close()
+        Person.currentmood = main()
+        self.nextPg = MoodTrends()
         self.nextPg.show()
         self.hide()
 
     def on_click2(self):
         print("your mood: %s" % self.mood.text())
-        self.nextPg = LoadPg()
+        Person.currentmood = self.mood.text()
+        self.nextPg = MoodTrends()
         self.nextPg.show()
         self.hide()
-
-    def setLabel(self, text, center, left, top, width, height, ftSize, bkColor, bold):
-        label = QLabel(text, self)
-        if center:
-            label.setAlignment(Qt.AlignCenter)
-        label.setGeometry(left, top, width, height)
-        style = "background-color: "+bkColor+";"
-        if bold:
-            style = style+"font-weight: bold"
-        label.setStyleSheet(style)
-        label.setFont(QFont('Segoe UI', ftSize))
-
 
 
