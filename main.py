@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
     def main_window(self):
         button = QPushButton(self)
         button.setGeometry(480, 450, 40, 20)
-        button.setStyleSheet("border-image : url(arrow.png);")
+        button.setStyleSheet("border-image : url(imgs/arrow.png);")
         button.clicked.connect(self.next_page)
         Person.setLabel(self, "Welcome to", True, 390, 200, 220, 35, 19, "white", False,'Consolas')
         Person.setLabel(self, "Moodipy", True, 380, 260, 230, 58, 35, "white", True, 'Segoe UI')
