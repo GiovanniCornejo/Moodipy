@@ -80,15 +80,24 @@ class MoodAnalyzerPg(QMainWindow):
 
     def on_click(self):
         Person.currentmood = find_mood(self.text.toPlainText())
-        self.nextPg = MoodTrends()
-        self.nextPg.show()
-        self.hide()
+        if Person.currentmood is None:
+            self.pop_up()
+        else:
+            self.nextPg = MoodTrends()
+            self.nextPg.show()
+            self.hide()
 
     def on_click2(self):
         print("your mood: %s" % self.mood.text())
-        Person.currentmood = self.mood.text()
+        mood = []
+        mood.append(self.mood.text())
+        Person.currentmood = mood
         self.nextPg = MoodTrends()
         self.nextPg.show()
         self.hide()
+        
+def pop_up(self):
+        msg = QMessageBox.question(self, 'Error', 'Please be more descriptive!', QMessageBox.Ok)
+
 
 
