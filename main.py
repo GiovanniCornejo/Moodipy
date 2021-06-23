@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from UserSummary import Person
+from MoodAnalyzerGUI import MoodAnalyzerPg
 from UserLogin import UserLoginPG
 
 
@@ -40,7 +41,7 @@ class MainWindow(QMainWindow):
         paint.setBrush(QBrush(Qt.white, Qt.SolidPattern))
         paint.drawEllipse(270, 70, 450, 450)
 
-    def next_page(self):                                    
+    def next_page(self):
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
         self.hide()
@@ -49,4 +50,3 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
-

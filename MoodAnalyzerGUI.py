@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from moodTrendsPg import MoodTrends
-from moodAnalyzer import main
+from moodAnalyzer import find_mood
 from UserSummary import Person
 
 
@@ -79,11 +79,7 @@ class MoodAnalyzerPg(QMainWindow):
         self.mood.setText(moods[value])
 
     def on_click(self):
-        print("your text: %s" % self.text.toPlainText())
-        file = open("read.txt", "w")
-        file.write(self.text.toPlainText())
-        file.close()
-        Person.currentmood = main()
+        Person.currentmood = find_mood(self.text.toPlainText())
         self.nextPg = MoodTrends()
         self.nextPg.show()
         self.hide()
