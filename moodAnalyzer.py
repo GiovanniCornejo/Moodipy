@@ -50,10 +50,11 @@ def find_mood(entry):
 
     # Then, we go through all the emotions we found and see which is most common
     emotion = Counter(potential_emotions)
-
-    most_common = emotion.most_common(2)[0][0]
-    second_most_common = emotion.most_common(2)[1][0]
-    print(second_most_common)
-    emotions_list = [most_common, second_most_common]
-
-    return most_common
+    
+    if len(emotion.most_common(2)) > 0:
+        emotions_list = []
+        for i in emotion.most_common(2):
+            emotions_list.append(i[0])
+        return emotions_list
+    else:
+        return None
