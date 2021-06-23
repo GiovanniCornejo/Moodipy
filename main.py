@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from UserSummary import Person
 from MoodAnalyzerGUI import MoodAnalyzerPg
+from screeninfo import get_monitors
 
 
 class MainWindow(QMainWindow):
@@ -13,8 +14,8 @@ class MainWindow(QMainWindow):
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = self.desktop.width()-100
-        self.height = self.desktop.height()-100
+        self.width = get_monitors()[0].width
+        self.height = get_monitors()[0].height
         self.initUI()
 
 
@@ -26,20 +27,22 @@ class MainWindow(QMainWindow):
         self.show()
 
     def main_window(self):
+        self.sw = (self.width/1000)
+        self.sh = (self.height/610)
         button = QPushButton(self)
-        button.setGeometry(self.width/2.08, self.height/1.36, self.width/25, self.height/30.5)
+        button.setGeometry(self.sw*480, self.sh*450, self.sw*40, self.sh*20)
         button.setStyleSheet("border-image : url(imgs/arrow.png);")
         button.clicked.connect(self.next_page)
-        Person.setLabel(self, "Welcome to", True, self.width / 2.56, self.height / 3.05, self.width / 4.55, self.height / 17.43, (self.width/1280)*19, "white", False, 'Consolas')
-        Person.setLabel(self, "Moodipy", True, self.width/2.63, self.height/2.35, self.width/4.35, self.height/10.5, (self.width/1280)*35, "white", True, 'Segoe UI')
-        Person.setLabel(self, "Generating playlists that express how you feel", True, self.width/2.99, self.height/1.63, self.width/2.99, self.height/30.5, (self.width/1280)*9, "white", False, 'Consolas')
+        Person.setLabel(self, "Welcome to", True, self.sw*390, self.sh*200, self.sw*220, self.sh*35, self.sw*19, "white", False,'Consolas')
+        Person.setLabel(self, "Moodipy", True, self.sw*380, self.sh*260, self.sw*230, self.sh*58, self.sw*35, "white", True, 'Segoe UI')
+        Person.setLabel(self, "Generating playlists that express how you feel", True, self.sw*335, self.sh*375, self.sw*338, self.sh*20, self.sw*9, "white", False,'Consolas')
 
 
     def paintEvent(self, event):
         paint = QPainter(self)
         paint.setPen(QPen(Qt.white, 5, Qt.SolidLine))
         paint.setBrush(QBrush(Qt.white, Qt.SolidPattern))
-        paint.drawEllipse(self.width/3.6875, self.height/10.3, self.width/2.22, self.width/2.22)
+        paint.drawEllipse(self.sw*270, self.sh*70, self.sw*450, self.sw*450)
 
     def next_page(self):
         self.nextPg = MoodAnalyzerPg()
