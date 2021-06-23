@@ -7,7 +7,7 @@ class Person:
     def __init__(self):
         self.__username = None
         self.__password = None
-        self.__currentMood = None
+        self.__currentMood = []
         date = datetime.datetime.now().date()
         self.__moods = {}
         self.__moods[date] = self.__currentMood
