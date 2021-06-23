@@ -27,7 +27,13 @@ class MoodTrends(QMainWindow):
         Person.setLabel(self, "", False, 20, 58, 225, 3, 0, "black", False, 'Segoe UI')
         Person.setLabel(self, "", False, 25, 150, 480, 170, 0, "white", False, 'Segoe UI')
         Person.setLabel(self, "", False, 470, 370, 480, 170, 0, "white", False, 'Segoe UI')
-        Person.setLabel(self, Person.currentmood, False, 90, 280, 120, 20, 11, "white", False, 'Consolas')
+        mood = ''
+        if len(Person.currentmood) == 1:
+            mood = Person.currentmood[0]
+        else:
+            mood = Person.currentmood[0] + " and " + Person.currentmood[1]
+
+        Person.setLabel(self, mood, False, 90, 280, 150, 20, 11, "white", False, 'Consolas')
 
 
 
