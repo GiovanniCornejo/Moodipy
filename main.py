@@ -14,8 +14,8 @@ class MainWindow(QMainWindow):
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = get_monitors()[0].width -100
-        self.height = get_monitors()[0].height -100
+        self.width = get_monitors()[0].width 
+        self.height = get_monitors()[0].height 
         self.initUI()
 
 
