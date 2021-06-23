@@ -26,8 +26,6 @@ class MainWindow(QMainWindow):
         self.show()
 
     def main_window(self):
-        print(self.width)
-        print(self.height)
         button = QPushButton(self)
         button.setGeometry(self.width/2.08, self.height/1.36, self.width/25, self.height/30.5)
         button.setStyleSheet("border-image : url(imgs/arrow.png);")
