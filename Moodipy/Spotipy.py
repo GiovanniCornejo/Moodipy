@@ -42,6 +42,21 @@ class User(Spotify):
         if not self._user_client:
             raise Exception("An error occurred granting access")
 
+    # Returns a List of the Users Liked Songs
+    def get_user_saved_tracks(self):
+        i, items, results = 0, ['1'], []
+        while(len(items) > 0):
+            items = self._user_client.current_user_saved_tracks(50, 50*i)['items']
+            if(len(items) != 0):
+                for item in items:
+                    results.append(item['track'])
+
+            i += 1
+            if i > 10: # FOR TESTING PURPOSES
+                break
+
+        return results
+    
     # Returns the ID of a Desired User Playlist
     def get_playlist_id(self, playlist_name=None):
         if playlist_name == None:
@@ -66,13 +81,15 @@ class User(Spotify):
         self._user_client.user_playlist_create(self._user_id, name=playlist_name, public=public, collaborative=collaborative, description=description)
 
     # Adds Tracks to a User's Playlist
-    def add_to_playlist(self, playlist_name=None, playlist_tracks=None, amount=100):
+    def add_to_playlist(self, playlist_name=None, playlist_tracks=None):
         if playlist_name == None:
             raise Exception("You must enter a playlist name")
-        if amount > 10000 or amount < 1:
-            raise Exception("You must enter a valid amount")
 
         playlist_id = self.get_playlist_id(playlist_name=playlist_name)
-        track_ids = (track['id'] for track in playlist_tracks[:amount])
+        track_ids = []
+        for track in playlist_tracks:
+            track_ids.append(track['id'])
 
-        self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=track_ids)
+        for i in range(0, len(track_ids), 100):
+            hundred_tracks = track_ids[i:i+100]
+            self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=hundred_tracks)
