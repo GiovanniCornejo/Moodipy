@@ -52,11 +52,70 @@ class User(Spotify):
                     results.append(item['track'])
 
             i += 1
-            if i > 10: # FOR TESTING PURPOSES
+            if i > 10: # FOR TESTING PURPOSES, 100 songs only
                 break
 
         return results
+
+    # Returns a List of the Users Songs Matching Emotion
+    def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
+        emotion_tracks = []
+        if base_emotion == "sadness" or base_emotion == "awful" or second_emotion == "sadness" or second_emotion == "awful":
+            # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
+            # float energy;                         //Metric of the energy of the track ( < 0.5 )
+            # bool mode;                            //Whether the track is major or minor (1 = minor?)
+            # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
+            # float acousticness;                   //Metric of the track being acoustic ( > 0.5 )
+            # float tempo;                          //The tempo of the track in ( < 120 BPM )
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['valence'] < 0.5 or af['energy'] < 0.5 or af['instrumentalness'] > 0.5 or af['acousticness'] > 0.5 or af['tempo'] < 120:
+                    emotion_tracks.append(track)
+
+
     
+        elif base_emotion == "bad" or base_emotion == "anger":
+            # float loudness;                       //Metric of the loudness of the track ( > 0. 5 )
+            # float energy;                         //Metric of the energy of the track ( > 0.5 )
+            # float tempo;                          //The tempo of the track ( > 120 BPM )
+            # float speechiness;                    //Metric of the track containing human voice ( > 0.5 )
+            return None
+    
+        elif base_emotion == "okay" or base_emotion == "fear":
+            # float danceability;                   //Metric of the track being danceable ( < 0.5 )
+            # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
+            # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
+            # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
+            # float energy;                         //Metric of the energy of the track ( <= 0.5)
+            return None
+
+        elif base_emotion == "happy" or base_emotion == "joy":
+            # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
+            # float danceability;                   //Metric of the track being danceable ( > 0.5 )
+            # float energy;                         //Metric of the energy of the track ( > 0.5 )
+            # float tempo;                          //The tempo of the track ( > 100 BPM )
+            # float loudness;                       //Metric of the loudness of the track ( > 0.5)
+            return None
+        
+        elif base_emotion == "excited" or base_emotion == "surprise":
+            # float energy;                         //Metric of the energy of the track ( > 0.5 )
+            # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
+            # float tempo;                          //The tempo of the track ( > 120 BPM )
+            # float danceability;                   //Metric of the track being danceable ( > 0.5 )
+            return None
+
+        elif base_emotion == "love":
+            # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
+            # float tempo;                          //The tempo of the track ( < 120 BPM )
+            # float instrumentalness;               //Metric of the track being instrumental ( < 0.5 )
+            # bool mode;                            //Whether the track is major or minor (0 = major?)
+            return None
+
+        return emotion_tracks
+        
+
+
+
     # Returns the ID of a Desired User Playlist
     def get_playlist_id(self, playlist_name=None):
         if playlist_name == None:
@@ -90,6 +149,36 @@ class User(Spotify):
         for track in playlist_tracks:
             track_ids.append(track['id'])
 
-        for i in range(0, len(track_ids), 100):
-            hundred_tracks = track_ids[i:i+100]
-            self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=hundred_tracks)
+        self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=track_ids)
+
+        # for i in range(0, len(track_ids), 50): 
+        #     hundred_tracks = track_ids[i:i+50]
+        #     self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=hundred_tracks)
+
+
+"""
+    /* USER INPUT PARAMETERS */
+    Values from 0 - 1
+    float acousticness;                   //Metric of the track being acoustic
+    float danceability;                   //Metric of the track being danceable
+    float energy;                         //Metric of the energy of the track
+    float instrumentalness;               //Metric of the track being instrumental
+    float liveness;                       //Metric of the track sounding as a live performance
+    float speechiness;                    //Metric of the track containing human voice
+    float valence;                        //Metric of the positiveness of the track
+    float tempo;                          //The tempo of the track in BPM as its reciprocal
+    float loudness;                       //Metric of the loudness of the track
+
+    bool mode;                            //Whether the track is major or minor
+    float popularity;                     //Metric of the popularity of the track
+"""
+
+    
+
+
+
+
+
+
+
+
