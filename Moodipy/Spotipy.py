@@ -2,6 +2,7 @@ import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 
+
 # Class for the Spotify Client
 class Spotify(object):
     # Client Variables
@@ -21,10 +22,12 @@ class Spotify(object):
         self._client_id = client_id
         self._client_secret = client_secret
         self._redirect_uri = redirect_uri
-        self._spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
+        self._spotify_client = spotipy.Spotify(
+            client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
 
         if not self._spotify_client:
             raise Exception("An error occurred on the client side")
+
 
 # Class for the User
 class User(Spotify):
@@ -36,7 +39,8 @@ class User(Spotify):
     # Constructor
     def __init__(self, user_id=None, scope=None, client=None):
         self._user_id = user_id
-        self._user_token = util.prompt_for_user_token(user_id, scope,client._client_id, client._client_secret, client._redirect_uri)
+        self._user_token = util.prompt_for_user_token(user_id, scope, client._client_id, client._client_secret,
+                                                      client._redirect_uri)
         self._user_client = spotipy.Spotify(auth=self._user_token)
 
         if not self._user_client:
@@ -45,14 +49,14 @@ class User(Spotify):
     # Returns a List of the Users Liked Songs
     def get_user_saved_tracks(self):
         i, items, results = 0, ['1'], []
-        while(len(items) > 0):
-            items = self._user_client.current_user_saved_tracks(50, 50*i)['items']
-            if(len(items) != 0):
+        while (len(items) > 0):
+            items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
+            if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
 
             i += 1
-            if i > 10: # FOR TESTING PURPOSES, 100 songs only
+            if i > 10:  # FOR TESTING PURPOSES, 100 songs only
                 break
 
         return results
@@ -69,25 +73,34 @@ class User(Spotify):
             # float tempo;                          //The tempo of the track in ( < 120 BPM )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
-                if af['valence'] < 0.5 or af['energy'] < 0.5 or af['instrumentalness'] > 0.5 or af['acousticness'] > 0.5 or af['tempo'] < 120:
+                if af['valence'] < 0.5 or af['energy'] < 0.5 or af['instrumentalness'] > 0.5 or af[
+                    'acousticness'] > 0.5 or af['tempo'] < 120:
                     emotion_tracks.append(track)
 
 
-    
+
         elif base_emotion == "bad" or base_emotion == "anger":
             # float loudness;                       //Metric of the loudness of the track ( > 0. 5 )
             # float energy;                         //Metric of the energy of the track ( > 0.5 )
             # float tempo;                          //The tempo of the track ( > 120 BPM )
             # float speechiness;                    //Metric of the track containing human voice ( > 0.5 )
-            return None
-    
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['loudness'] > 0.5 or af['energy'] > 0.5 or af['tempo'] > 120 or af[
+                    'speechiness'] > 0.5:
+                    emotion_tracks.append(track)
+
         elif base_emotion == "okay" or base_emotion == "fear":
             # float danceability;                   //Metric of the track being danceable ( < 0.5 )
             # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
             # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
             # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
             # float energy;                         //Metric of the energy of the track ( <= 0.5)
-            return None
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['danceability'] < 0.5 or af['instrumentalness'] > 0.5 or af['loudness'] > 0.5 or af[
+                    'valence'] < 0.5 or af['energy'] <= 0.5:
+                    emotion_tracks.append(track)
 
         elif base_emotion == "happy" or base_emotion == "joy":
             # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
@@ -95,26 +108,35 @@ class User(Spotify):
             # float energy;                         //Metric of the energy of the track ( > 0.5 )
             # float tempo;                          //The tempo of the track ( > 100 BPM )
             # float loudness;                       //Metric of the loudness of the track ( > 0.5)
-            return None
-        
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['valence'] > 0.5 or af['danceability'] > 0.5 or af['energy'] > 0.5 or af[
+                    'tempo'] > 100 or af['loudness'] > 0.5:
+                    emotion_tracks.append(track)
+
         elif base_emotion == "excited" or base_emotion == "surprise":
             # float energy;                         //Metric of the energy of the track ( > 0.5 )
             # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
             # float tempo;                          //The tempo of the track ( > 120 BPM )
             # float danceability;                   //Metric of the track being danceable ( > 0.5 )
-            return None
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['energy'] > 0.5 or af['loudness'] > 0.5 or af['tempo'] > 120 or af[
+                    'danceability'] > 0.5:
+                    emotion_tracks.append(track)
 
         elif base_emotion == "love":
             # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
             # float tempo;                          //The tempo of the track ( < 120 BPM )
             # float instrumentalness;               //Metric of the track being instrumental ( < 0.5 )
             # bool mode;                            //Whether the track is major or minor (0 = major?)
-            return None
+            for track in user_tracks:
+                af = client._spotify_client.audio_features(track['id'])[0]
+                if af['valence'] > 0.5 or af['tempo'] < 120 or af['instrumentalness'] < 0.5 or af[
+                    'mode'] == 0:
+                    emotion_tracks.append(track)
 
         return emotion_tracks
-        
-
-
 
     # Returns the ID of a Desired User Playlist
     def get_playlist_id(self, playlist_name=None):
@@ -137,7 +159,8 @@ class User(Spotify):
         if playlist_name == None:
             raise Exception("You must enter a playlist name")
 
-        self._user_client.user_playlist_create(self._user_id, name=playlist_name, public=public, collaborative=collaborative, description=description)
+        self._user_client.user_playlist_create(self._user_id, name=playlist_name, public=public,
+                                               collaborative=collaborative, description=description)
 
     # Adds Tracks to a User's Playlist
     def add_to_playlist(self, playlist_name=None, playlist_tracks=None):
@@ -151,7 +174,7 @@ class User(Spotify):
 
         self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=track_ids)
 
-        # for i in range(0, len(track_ids), 50): 
+        # for i in range(0, len(track_ids), 50):
         #     hundred_tracks = track_ids[i:i+50]
         #     self._user_client.user_playlist_add_tracks(self._user_id, playlist_id=playlist_id, tracks=hundred_tracks)
 
@@ -168,10 +191,10 @@ class User(Spotify):
     float valence;                        //Metric of the positiveness of the track
     float tempo;                          //The tempo of the track in BPM as its reciprocal
     float loudness;                       //Metric of the loudness of the track
-
     bool mode;                            //Whether the track is major or minor
     float popularity;                     //Metric of the popularity of the track
 """
+
 
     
 
