@@ -3,7 +3,7 @@ from Spotipy import Spotify, User
 
 # Moodipy Client Environment Variables
 client_id = "17c9e6c9abe14de9bbfbb10c7d89afa4"
-client_secret = "1a8fdfd3501a4c2da9e6bd3fe300b7c8"
+client_secret = ""
 redirect_uri = "http://localhost:8080"
 
 # User Environent Variables
