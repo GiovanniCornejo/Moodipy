@@ -52,7 +52,7 @@ class LoadPg(QMainWindow):
         
     def startProgressBar(self):
         #Progress Bar time                                <== Start PlaylistGenerator.py
-        for i in range(101):
+        for i in range(100):
             time.sleep(0.05)
             self.loadingBar.setValue(i)
 
