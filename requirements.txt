@@ -12,7 +12,7 @@ sudo apt-get install qttools5-dev-tools
 
 pip install screeninfo
 
-pip spotipy
+pip install spotipy
 
 
 
