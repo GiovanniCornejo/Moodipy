@@ -2,8 +2,8 @@
 # Create a Playlist from Sentiment Analysis and Track Analysis
 from Spotipy import User
 import SpotifyAuthorization
-from SpotifyAuthorization import client
-from SpotifyAuthorization import user
+from SpotifyAuthorization import Authorization
+user, client = Authorization()
 
 """ 
 Step 0: Get Users Liked Songs
