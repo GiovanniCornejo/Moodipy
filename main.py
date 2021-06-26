@@ -48,6 +48,10 @@ class MainWindow(QMainWindow):
     #Open next window method
     def nextPG(self):
         if os.path.isfile("UserInfo.txt"):
+            if os.stat("UserInfo.txt").st_size == 0:
+                self.nextPG = UserLoginPG()
+                self.nextPG.show()
+                self.hide()
             f = open("UserInfo.txt", "r+")
             Person.userID = f.readline()
             f.close()
