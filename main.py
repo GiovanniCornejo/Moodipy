@@ -47,17 +47,15 @@ class MainWindow(QMainWindow):
         paint.drawEllipse(self.sw*270, self.sh*70, self.sw*450, self.sh*450)
     #Open next window method
     def nextPG(self):
-        file = open('UserInfo.txt', 'w+')
-        file.close()
-        if os.stat("UserInfo.txt").st_size == 0:
-            self.nextPG = UserLoginPG()
-            self.nextPG.show()
-            self.hide()
-        else:
+        if os.path.isfile("UserInfo.txt"):
             f = open("UserInfo.txt", "r+")
             Person.userID = f.readline()
             f.close()
             self.nextPG = MoodAnalyzerPg()
+            self.nextPG.show()
+            self.hide()
+        else:
+            self.nextPG = UserLoginPG()
             self.nextPG.show()
             self.hide()
 
