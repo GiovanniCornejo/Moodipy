@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from UserSummary import Person
+from PlaylistGenerator import generatePlaylist
 from screeninfo import get_monitors
 
 
@@ -26,6 +27,7 @@ class PlaylistPg(QMainWindow):
         self.show()
 
     def mood_window(self):
+        Person.tracks = generatePlaylist()
         # Generate another playlist btn
         nextbtn = QPushButton("Enter another mood...", self)
         nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white; hover { background-color : white}")
@@ -40,11 +42,9 @@ class PlaylistPg(QMainWindow):
         scrollBar = QScrollBar(self)
         listWidget.setVerticalScrollBar(scrollBar)
         listWidget.setStyleSheet("background-color:rgba(208, 255, 244, 255); ")
-    #==> Test Tracks, replace with PlaylistGenerator tracks
-        tracks = {'Track 1': 'Artist1', 'Track 2': 'Artist2', 'Track 3': 'Artist 3', 'Track 4': 'Artist 4',
-                  'Track 5': 'Artist 5', 'Track 6': 'Artist 6', 'Track 7': 'Artist 7', 'Track 8': 'Artist 8',
-                  'Track 9': 'Artist 9', 'Track 10': 'Artist 10', 'Track 11': 'Artist 11', 'Track 12': 'Artist 12'}
+        
         # Add tracks to list widget
+        tracks = Person.tracks
         num = 1
         for song, title in tracks.items():
             if num < 10:
