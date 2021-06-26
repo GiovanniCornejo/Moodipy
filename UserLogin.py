@@ -46,7 +46,7 @@ class UserLoginPG(QMainWindow):
         if Authorization() == None:
             self.pop_up()
         else:
-            f = open("UserInfo.txt", "w")
+            f = open("UserInfo.txt", "w+")
             f.write(self.username.text())
             f.close()
             self.nextPg = MoodAnalyzerPg()
