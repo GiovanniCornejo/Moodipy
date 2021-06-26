@@ -1,6 +1,6 @@
 #Spotify Web API authorization
 
-#from UserSummary import Person                 <== Use this if testing the GUI
+from UserSummary import Person
 import requests.exceptions
 import spotipy
 from Spotipy import Spotify, User
@@ -12,8 +12,7 @@ def Authorization():
     redirect_uri = "http://localhost:8080"
 
 # User Environent Variables
-    #user_id = Person.userID                    <== Use this if testing the GUI
-    user_id = "igjsqvqpbxeuhoxlgvplj68qf"
+    user_id = Person.userID
     scope = "user-library-read  playlist-modify-public"
 
 # Spotify Entry Points Created
