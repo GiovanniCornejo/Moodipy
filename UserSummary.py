@@ -78,3 +78,5 @@ class Person:
             style = style+"font-weight: bold"
         label.setStyleSheet(style)
         label.setFont(QFont(font, ftSize))
+    
+  
