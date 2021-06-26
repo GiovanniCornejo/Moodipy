@@ -14,6 +14,15 @@ pip install screeninfo
 
 pip install spotipy
 
+pip install nltk
+
+python3 -m nltk.downloader punkt
+
+python3 -m nltk.downloader stopwords
+
+python3 -m nltk.downloader averaged_perceptron_tagger
+
+python3 -m nltk.downloader wordnet
 
 
 run on ubuntu by doing python3 main.py
