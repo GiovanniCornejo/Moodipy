@@ -1,0 +1,4 @@
+include Moodipy/emotions.txt
+recursive-include Moodipy/imgs *
+include Moodipy/imgs/arrow.png
+include Moodipy/imgs/awful.jpeg
