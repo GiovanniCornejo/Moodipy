@@ -5,19 +5,19 @@ Use sentiment analysis to create a playlist that matches someone's mood and also
 
 ### Required packages commands if the distribution not found in PYPI: 
 * screeninfo:
-** pip install screeninfo
+  * pip install screeninfo
 * spotipy
-** pip install spotipy
+  * pip install spotipy
 * nltk:
-** pip install nltk
-** python3 -m nltk.downloader punkt
-** python3 -m nltk.downloader stopwords
-** python3 -m nltk.downloader averaged_perceptron_tagger
-** python3 -m nltk.downloader wordnet
+  * pip install nltk
+  * python3 -m nltk.downloader punkt
+  * python3 -m nltk.downloader stopwords
+  * python3 -m nltk.downloader averaged_perceptron_tagger
+  * python3 -m nltk.downloader wordnet
 * PyQt5:
-** pip3 install --user pyqt5
-** sudo apt-get install pyqt5-dev-tools
-**sudo apt-get install qttools5-dev-tools
+  * pip3 install --user pyqt5
+  * sudo apt-get install pyqt5-dev-tools
+  *sudo apt-get install qttools5-dev-tools
 
 
 
