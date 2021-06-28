@@ -8,6 +8,10 @@ Use sentiment analysis to create a playlist that matches someone's mood and also
   * pip install screeninfo
 * spotipy
   * pip install spotipy
+* urllib3==1.26.6:
+  * pip install urllib3 --upgrade
+* requests>=2.25.0
+  *  pip install requests --upgrade
 * nltk:
   * pip install nltk
   * python3 -m nltk.downloader punkt
