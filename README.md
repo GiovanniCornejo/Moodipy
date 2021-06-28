@@ -3,7 +3,7 @@ Use sentiment analysis to create a playlist that matches someone's mood and also
 
 ## Installation instructions
 
-### Required packages commands if the distribution not found in PYPI: 
+### Required packages commands if the distribution is not found in PYPI: 
 * screeninfo:
   * pip install screeninfo
 * spotipy
