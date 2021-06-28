@@ -21,7 +21,7 @@ Use sentiment analysis to create a playlist that matches someone's mood and also
 * PyQt5:
   * pip3 install --user pyqt5
   * sudo apt-get install pyqt5-dev-tools
-  *sudo apt-get install qttools5-dev-tools
+  * sudo apt-get install qttools5-dev-tools
 
 
 
