@@ -81,7 +81,7 @@ class MoodAnalyzerPg(QMainWindow):
 
     def updateMood(self, value):
         moods = ["awful", "bad", "okay", "happy", "excited", "love"]
-        self.mood_img.setStyleSheet("border-image : url(%s.jpeg);" % moods[value])
+        self.mood_img.setStyleSheet("border-image : url(Moodipy/imgs/%s.jpeg);" % moods[value])
         self.mood.setText(moods[value])
 
     def on_click(self):
