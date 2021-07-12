@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="Moodipy",
-    version="0.118",
+    version="0.119",
     packages=["Moodipy"],
     url="https://github.com/dianas11xx/Moodify",
     author="Noteworthy",
