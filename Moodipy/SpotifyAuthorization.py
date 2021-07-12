@@ -2,6 +2,7 @@ import requests.exceptions
 import spotipy
 from Moodipy.Spotipy import Spotify, User
 from Moodipy.UserSummary import Person
+from os import path
 
 
 # Spotify Web API authorization
@@ -20,7 +21,9 @@ def Authorization():
 
     # INTERFACE
     try:
-        client = Spotify(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri)
+        cache_name = ".cache-" + user_id
+        cache_file_path = path.join(path.dirname(__file__), cache_name)
+        client = Spotify(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, cache_path=cache_file_path)
         user = User(user_id=user_id, scope=scope, client=client)
         return user, client
     except (spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
