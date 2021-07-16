@@ -53,27 +53,29 @@ class User(Spotify):
             if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
-                    print(item)
 
             i += 1
-            if i > 10:  # FOR TESTING PURPOSES, 100 songs only
+
+            if i > 10:
                 break
 
         return results
 
+
     # Returns a List of the Users Songs Matching Emotion
     def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
         emotion_tracks = []
-        num_hits = 0
+
         if base_emotion == "sadness" or base_emotion == "awful" or second_emotion == "sadness" or second_emotion == "awful":
             # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
             # float energy;                         //Metric of the energy of the track ( < 0.5 )
-            # bool mode;                            //Whether the track is major or minor (1 = minor?)
+            # bool mode;                            //Whether the track is major or minor (1 = minor)
             # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
             # float acousticness;                   //Metric of the track being acoustic ( > 0.5 )
             # float tempo;                          //The tempo of the track in ( < 120 BPM )
             for track in user_tracks:
-                af = client._spotify_client.audio_features(track['id'])[0]
+                af = client._spotify_client.audio_features(track['uri'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['valence'] < 0.5:
                         num_hits += 1
@@ -88,8 +90,6 @@ class User(Spotify):
                     if num_hits > 3:
                         emotion_tracks.append(track)
 
-
-
         elif base_emotion == "bad" or base_emotion == "anger":
             # float loudness;                       //Metric of the loudness of the track ( > 0. 5 )
             # float energy;                         //Metric of the energy of the track ( > 0.5 )
@@ -97,6 +97,7 @@ class User(Spotify):
             # float speechiness;                    //Metric of the track containing human voice ( > 0.5 )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['loudness'] > 0.5:
                         num_hits += 1
@@ -117,6 +118,7 @@ class User(Spotify):
             # float energy;                         //Metric of the energy of the track ( <= 0.5)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['danceability'] < 0.5:
                         num_hits += 1
@@ -139,6 +141,7 @@ class User(Spotify):
             # float loudness;                       //Metric of the loudness of the track ( > 0.5)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['valence'] > 0.5:
                         num_hits += 1
@@ -160,6 +163,7 @@ class User(Spotify):
             # float danceability;                   //Metric of the track being danceable ( > 0.5 )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['energy'] > 0.5:
                         num_hits += 1
@@ -179,6 +183,7 @@ class User(Spotify):
             # bool mode;                            //Whether the track is major or minor (0 = major?)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
+                num_hits = 0
                 if af is not None:
                     if af['valence'] > 0.5:
                         num_hits += 1
