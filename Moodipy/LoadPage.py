@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from Moodipy.PlaylistGUI import PlaylistPg
 from screeninfo import get_monitors
+from ErrorPage import ErrorPG
 import time
 
 class LoadPg(QMainWindow):
@@ -41,12 +42,18 @@ class LoadPg(QMainWindow):
 
     def startProgressBar(self):
         for i in range(100):
-            time.sleep(0.05)
+            time.sleep(0.03)
             self.loadingBar.setValue(i)
 
-        self.nextPg = PlaylistPg()
-        self.nextPg.show()
-        self.hide()
+        Person.tracks = generatePlaylist()
+        if Person.tracks == None:
+            self.nextPg = ErrorPG()
+            self.nextPg.show()
+            self.hide()
+        else:
+            self.nextPg = PlaylistPg()
+            self.nextPg.show()
+            self.hide()
 
 
     def paintEvent(self, event):
