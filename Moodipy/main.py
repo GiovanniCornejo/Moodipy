@@ -1,5 +1,6 @@
 import sys
 import os
+from os import path
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -35,7 +36,9 @@ class MainWindow(QMainWindow):
         print(self.height)
         button = QPushButton(self)
         button.setGeometry(self.sw*480, self.sh*450, self.sw*40, self.sh*20)
-        button.setStyleSheet("border-image : url(Moodipy/imgs/arrow.png);")
+        arrow_img = path.join(path.join(path.dirname(__file__), "imgs"), "arrow.png")
+        styleS = "border-image : url(" + arrow_img + ");"
+        button.setStyleSheet(styleS)
         button.clicked.connect(self.nextPG)
 
         Person.setLabel(self, "Welcome to", True, self.sw*390, self.sh*200, self.sw*220, self.sh*35, self.sw*19, "white", False,'Consolas')
