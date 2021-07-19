@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from UserSummary import Person
+from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
 
 class ErrorPG(QMainWindow):
@@ -47,13 +47,13 @@ class ErrorPG(QMainWindow):
         self.tryAgainBtn.clicked.connect(self.on_tryAgain)
 
     def on_new(self):
-        from MoodAnalyzerGUI import MoodAnalyzerPg
+        from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
-        from LoadPage import LoadPg
+        from Moodipy.LoadPage import LoadPg
         self.nextPg = LoadPg()
         self.nextPg.show()
         self.hide()
