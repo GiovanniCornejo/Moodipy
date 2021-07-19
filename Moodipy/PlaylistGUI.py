@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
-from Moodipy.PlaylistGenerator import generatePlaylist
 
 class PlaylistPg(QMainWindow):
     def __init__(self):
@@ -26,7 +25,6 @@ class PlaylistPg(QMainWindow):
         self.show()
 
     def mood_window(self):
-        Person.tracks = generatePlaylist()
         # Generate another playlist btn
         nextbtn = QPushButton("Enter another mood...", self)
         nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white; hover { background-color : white}")
