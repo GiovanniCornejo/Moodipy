@@ -12,7 +12,7 @@ class Spotify(object):
     _spotify_client = None
 
     # Constructor
-    def __init__(self, client_id=None, client_secret=None, redirect_uri=None):
+    def __init__(self, client_id=None, client_secret=None, redirect_uri=None, cache_path=None):
         if client_id == None or client_secret == None:
             raise Exception("You must set client_id and client_secret")
 
@@ -22,8 +22,10 @@ class Spotify(object):
         self._client_id = client_id
         self._client_secret = client_secret
         self._redirect_uri = redirect_uri
+        self._cache_path = cache_path
+        cache_handle = spotipy.cache_handler.CacheFileHandler(cache_path=self._cache_path)
         self._spotify_client = spotipy.Spotify(
-            client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
+            client_credentials_manager=SpotifyClientCredentials(client_id, client_secret, cache_handler=cache_handle))
 
         if not self._spotify_client:
             raise Exception("An error occurred on the client side")
@@ -40,7 +42,7 @@ class User(Spotify):
     def __init__(self, user_id=None, scope=None, client=None):
         self._user_id = user_id
         self._user_token = util.prompt_for_user_token(user_id, scope, client._client_id, client._client_secret,
-                                                      client._redirect_uri)
+                                                      client._redirect_uri, client._cache_path)
         self._user_client = spotipy.Spotify(auth=self._user_token)
         if not self._user_client:
             raise Exception("An error occurred granting access")
