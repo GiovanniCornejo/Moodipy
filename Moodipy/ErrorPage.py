@@ -11,8 +11,6 @@ class ErrorPG(QMainWindow):
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = 1000
-        self.height = 610
         self.width = get_monitors()[0].width - 150
         self.height = get_monitors()[0].height - 80
         self.selected_mood = None
