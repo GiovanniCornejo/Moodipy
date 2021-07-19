@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from Moodipy.PlaylistGUI import PlaylistPg
 from screeninfo import get_monitors
-from ErrorPage import ErrorPG
+from Moodipy.ErrorPage import ErrorPG
 import time
 
 class LoadPg(QMainWindow):
