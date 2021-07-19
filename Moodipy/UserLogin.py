@@ -3,7 +3,7 @@ from Moodipy.UserSummary import Person
 from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
 from Moodipy.SpotifyAuthorization import Authorization
 from screeninfo import get_monitors
-
+from os import path
 
 class UserLoginPG(QMainWindow):
     def __init__(self):
@@ -44,7 +44,8 @@ class UserLoginPG(QMainWindow):
         if Authorization() == None:
             self.pop_up()
         else:
-            f = open("UserInfo.txt", "w+")
+            userInfoPath = path.join(path.dirname(__file__), "UserInfo.txt")
+            f = open(userInfoPath, "w+")
             f.write(self.username.text())
             f.close()
             self.nextPg = MoodAnalyzerPg()
