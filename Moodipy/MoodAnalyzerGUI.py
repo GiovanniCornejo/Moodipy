@@ -5,6 +5,7 @@ from PyQt5.QtCore import *
 from Moodipy.moodAnalyzer import find_mood
 from Moodipy.UserSummary import Person
 from Moodipy.LoadPage import LoadPg
+from os import path
 
 class MoodAnalyzerPg(QMainWindow):
     def __init__(self):
