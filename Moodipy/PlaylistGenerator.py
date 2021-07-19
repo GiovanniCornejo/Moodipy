@@ -1,6 +1,6 @@
-from SpotifyAuthorization import Authorization
-from UserSummary import Person
-from random import sample
+from Moodipy.SpotifyAuthorization import Authorization
+from Moodipy.UserSummary import Person
+import random
 
 
 def generatePlaylist():
@@ -12,8 +12,6 @@ def generatePlaylist():
     print("checkpoint 0")
 
     user_songs = user.get_user_saved_tracks()
-    if len(user_songs) > 300: # Check Random 300 in User Library
-        user_songs = sample(user_songs, 300)
 
     print("checkpoint 1")
 
@@ -35,8 +33,7 @@ def generatePlaylist():
     """
     Step 2: Create a Playlist for the User
     """
-    if len(emotion_tracks) > 30: # Show random 30 (average for Spotify playlist creators)
-        emotion_tracks = sample(emotion_tracks, 30)
+    emotion_tracks = random.sample(emotion_tracks, 25)
 
     tracks = {}
     for track in emotion_tracks:
@@ -59,4 +56,3 @@ def generatePlaylist():
     print("checkpoint 4")
 
     return tracks
-
