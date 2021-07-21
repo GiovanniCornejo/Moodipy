@@ -3,6 +3,8 @@ import spotipy
 from Moodipy.Spotipy import Spotify, User
 from Moodipy.UserSummary import Person
 from os import path
+import time
+import os
 
 
 # Spotify Web API authorization
@@ -23,6 +25,12 @@ def Authorization():
     try:
         cache_name = ".cache-" + user_id
         cache_file_path = path.join(path.dirname(__file__), cache_name)
+        if os.path.isfile(cache_file_path):
+            cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=cache_file_path)
+            token_info = cache_handler.get_cached_token()
+            now = int(time.time())
+            if token_info["expires_at"] - now < 60:
+                os.remove(cache_file_path)
         client = Spotify(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, cache_path=cache_file_path)
         user = User(user_id=user_id, scope=scope, client=client)
         return user, client
