@@ -1,7 +1,8 @@
 import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
-
+from spotipy.oauth2 import SpotifyOAuth
+import requests.exceptions
 
 # Class for the Spotify Client
 class Spotify(object):
@@ -51,7 +52,11 @@ class User(Spotify):
     def get_user_saved_tracks(self):
         i, items, results = 0, ['1'], []
         while (len(items) > 0):
-            items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
+            try:
+                items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
+                return results
+            
             if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
@@ -62,7 +67,49 @@ class User(Spotify):
                 break
 
         return results
-
+    
+    def get_user_top_tracks(self):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            try:
+                items = self._user_client.current_user_top_tracks(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
+                return results
+            
+            if (len(items) != 0):
+                for item in items:
+                    results.append(item)
+                    
+            i += 1
+            
+            if i > 10:  
+                break
+                
+        return results
+    
+    def get_user_top_artists_tracks(self):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            try:
+                items = self._user_client.current_user_top_artists(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError, spotipy.oauth2.SpotifyOauthError):
+                return results
+            
+            if (len(items) != 0):
+                for item in items:
+                    top = []
+                    try:
+                        top = self._user_client.artist_top_tracks(item['uri'])
+                    except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,
+                           spotipy.oauth2.SpotifyOauthError):
+                        return results
+                    results.extend(top['tracks'])
+                    
+            i += 1
+            if i > 10:  # FOR TESTING PURPOSES, 100 songs only
+                break
+                
+        return results
 
     # Returns a List of the Users Songs Matching Emotion
     def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
