@@ -1,6 +1,8 @@
 import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+import requests.exceptions
 
 
 # Class for the Spotify Client
@@ -49,30 +51,70 @@ class User(Spotify):
     def get_user_saved_tracks(self):
         i, items, results = 0, ['1'], []
         while (len(items) > 0):
-            items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
+            try:
+                items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
+                return results
+            
             if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
 
             i += 1
-
             if i > 10:
                 break
 
         return results
 
+    # Returns a List of the Users Top Songs
+    def get_user_top_tracks(self):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            try:
+                items = self._user_client.current_user_top_tracks(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
+                return results
+            
+            if (len(items) != 0):
+                for item in items:
+                    results.append(item)
+                    
+            i += 1
+            if i > 10:  
+                break
+                
+        return results
+    
+    # Returns a List of the Users Top Artist Songs
+    def get_user_top_artists_tracks(self):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            try:
+                items = self._user_client.current_user_top_artists(50, 50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError, spotipy.oauth2.SpotifyOauthError):
+                return results
+            
+            if (len(items) != 0):
+                for item in items:
+                    top = []
+                    try:
+                        top = self._user_client.artist_top_tracks(item['uri'])
+                    except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,
+                           spotipy.oauth2.SpotifyOauthError):
+                        return results
+                    results.extend(top['tracks'])
+                    
+            i += 1
+            if i > 10:
+                break
+                
+        return results
 
     # Returns a List of the Users Songs Matching Emotion
     def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
         emotion_tracks = []
 
         if base_emotion == "sadness" or base_emotion == "awful" or second_emotion == "sadness" or second_emotion == "awful":
-            # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
-            # float energy;                         //Metric of the energy of the track ( < 0.5 )
-            # bool mode;                            //Whether the track is major or minor (1 = minor)
-            # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
-            # float acousticness;                   //Metric of the track being acoustic ( > 0.5 )
-            # float tempo;                          //The tempo of the track in ( < 120 BPM )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['uri'])[0]
                 num_hits = 0
@@ -91,10 +133,6 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         elif base_emotion == "bad" or base_emotion == "anger":
-            # float loudness;                       //Metric of the loudness of the track ( > 0. 5 )
-            # float energy;                         //Metric of the energy of the track ( > 0.5 )
-            # float tempo;                          //The tempo of the track ( > 120 BPM )
-            # float speechiness;                    //Metric of the track containing human voice ( > 0.5 )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
@@ -111,11 +149,6 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         elif base_emotion == "okay" or base_emotion == "fear":
-            # float danceability;                   //Metric of the track being danceable ( < 0.5 )
-            # float instrumentalness;               //Metric of the track being instrumental ( > 0.5 )
-            # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
-            # float valence;                        //Metric of the positiveness of the track ( < 0.5 )
-            # float energy;                         //Metric of the energy of the track ( <= 0.5)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
@@ -134,11 +167,6 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         elif base_emotion == "happy" or base_emotion == "joy":
-            # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
-            # float danceability;                   //Metric of the track being danceable ( > 0.5 )
-            # float energy;                         //Metric of the energy of the track ( > 0.5 )
-            # float tempo;                          //The tempo of the track ( > 100 BPM )
-            # float loudness;                       //Metric of the loudness of the track ( > 0.5)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
@@ -157,10 +185,6 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         elif base_emotion == "excited" or base_emotion == "surprise":
-            # float energy;                         //Metric of the energy of the track ( > 0.5 )
-            # float loudness;                       //Metric of the loudness of the track ( > 0.5 )
-            # float tempo;                          //The tempo of the track ( > 120 BPM )
-            # float danceability;                   //Metric of the track being danceable ( > 0.5 )
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
@@ -177,10 +201,6 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         elif base_emotion == "love":
-            # float valence;                        //Metric of the positiveness of the track ( > 0.5 )
-            # float tempo;                          //The tempo of the track ( < 120 BPM )
-            # float instrumentalness;               //Metric of the track being instrumental ( < 0.5 )
-            # bool mode;                            //Whether the track is major or minor (0 = major?)
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
@@ -197,37 +217,48 @@ class User(Spotify):
                         emotion_tracks.append(track)
 
         return emotion_tracks
+    
+    # Returns a List of the Users Playlists
+    def get_user_playlists(self):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            items = self._user_client.current_user_playlists(50, 50 * i)['items']
+            if (len(items) > 0):
+                for item in items:
+                    results.append(item)
+            
+            i += 1
+        
+        return results
+    
+    # Returns a List of the Users Playlist Songs
+    def get_user_playlist_tracks(self, playlist_id=None):
+        i, items, results = 0, ['1'], []
+        while (len(items) > 0):
+            try:
+                items = self._user_client.playlist_tracks(playlist_id, limit=50, offset=50 * i)['items']
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError, spotipy.oauth2.SpotifyOauthError):
+                return results
+            if (len(items) != 0):
+                for item in items:
+                    results.append(item['track'])
 
-    # Returns the ID of a Desired User Playlist
-    def get_playlist_id(self, playlist_name=None):
-        if playlist_name == None:
-            raise Exception("You must enter a playlist name")
+            i += 1
+            if i > 10:
+                break
 
-        playlist_id = None
-        playlists = self._user_client.user_playlists(self._user_id)
-        for playlist in playlists['items']:
-            if playlist['name'] == playlist_name:
-                playlist_id = playlist['id']
+        return results
 
-        if playlist_id == None:
-            raise Exception("There is no playlist with that name")
-
-        return playlist_id
-
-    # Creates a New Playlist for the User
+    # Creates a New Playlist for the User and Returns the ID
     def create_playlist(self, playlist_name=None, public=True, collaborative=False, description=""):
         if playlist_name == None:
             raise Exception("You must enter a playlist name")
 
-        self._user_client.user_playlist_create(self._user_id, name=playlist_name, public=public,
-                                               collaborative=collaborative, description=description)
+        return (self._user_client.user_playlist_create(self._user_id, name=playlist_name, public=public,
+                                               collaborative=collaborative, description=description))['id']
 
     # Adds Tracks to a User's Playlist
-    def add_to_playlist(self, playlist_name=None, playlist_tracks=None):
-        if playlist_name == None:
-            raise Exception("You must enter a playlist name")
-
-        playlist_id = self.get_playlist_id(playlist_name=playlist_name)
+    def add_to_playlist(self, playlist_id=None, playlist_tracks=None):
         track_ids = []
         for track in playlist_tracks:
             track_ids.append(track['id'])
