@@ -1,4 +1,6 @@
 from Moodipy.SpotifyAuthorization import Authorization
+import requests.exceptions
+import spotipy
 from Moodipy.UserSummary import Person
 from random import sample
 
@@ -14,6 +16,13 @@ def generatePlaylist():
         print("checkpoint 0")
 
         user_songs = user.get_user_saved_tracks()
+        print("checkpoint 1")
+        if len(user_songs) < 250:
+            user_songs = user.get_user_top_artists_tracks()
+            print("checkpoint 1.5")
+            if len(user_songs) < 50:
+                user_songs = user.get_user_top_tracks()
+                print("checkpoint 1.5.2")
         if len(user_songs) > 300: # Check Random 300 in User Library
             user_songs = sample(user_songs, 300)
 
@@ -31,7 +40,9 @@ def generatePlaylist():
 
         emotion_tracks = user.get_user_emotion_tracks(client=client, user_tracks=user_songs, base_emotion=first_emotion,
                                                     second_emotion=second_emotion)
-
+        if len(emotion_tracks) == 0:
+            return "NO SONGS"
+        
         print("checkpoint 2")
 
         """
