@@ -11,14 +11,24 @@ from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
 
 
 class MainWindow(QMainWindow):
+
+
     def __init__(self):
+        max_screen_width = 1536
+        min_screen_width = 500
+
+        max_screen_height = 864
+        min_screen_height = 500
+
         super().__init__()
         self.title = "Moodipy"
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = get_monitors()[0].width - 150
-        self.height = get_monitors()[0].height - 80
+        temp_width = get_monitors()[0].width * .4
+        self.width = max(min(temp_width, max_screen_width), min_screen_width)
+        temp_height = get_monitors()[0].height * .4
+        self.height = max(min(temp_height, max_screen_height), min_screen_height)
         self.initUI()
 
 
