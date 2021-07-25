@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         max_screen_width = 1536
-        min_screen_width = 900
+        min_screen_width = 950
 
         max_screen_height = 864
         min_screen_height = 600
