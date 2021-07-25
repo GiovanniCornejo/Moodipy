@@ -15,10 +15,10 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         max_screen_width = 1536
-        min_screen_width = 950
+        min_screen_width = 1000
 
         max_screen_height = 864
-        min_screen_height = 600
+        min_screen_height = 610
 
         super().__init__()
         self.title = "Moodipy"
