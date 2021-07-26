@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from UserSummary import Person
+from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
 
 class PredictPG(QMainWindow):
@@ -41,8 +40,10 @@ class PredictPG(QMainWindow):
         scrollBar = QScrollBar(self)
         listWidget.setVerticalScrollBar(scrollBar)
         listWidget.setStyleSheet("background-color:#b198f9; color: white ")
-
+        
+        #Just Test Tracks
         tracks = {"Song1":"Artist 1", "Song2":"Artist 2", "Song3":"Artist 3", "Song4":"Artist 4","Song5":"Artist 5", "Song6":"Artist 6", "Song7":"Artist 7", "Song8":"Artist 8","Song9":"Artist 9", "Song10":"Artist 10", "Song11":"Artist 11", "Song12":"Artist 12"}
+       
         num = 1
         for song, title in tracks.items():
             if num < 10:
@@ -57,7 +58,7 @@ class PredictPG(QMainWindow):
             num = num + 1
 
     def on_click2(self):
-        from DiscoverPgGUI import DiscoverPG
+        from Moodipy.DiscoverPgGUI import DiscoverPG
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
