@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from UserSummary import Person
+from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
-from playlist_test import get_user_playlists
+from Moodipy.playlist_test import get_user_playlists
 
 class ErrorNoSongs(QMainWindow):
     def __init__(self):
@@ -53,13 +53,13 @@ class ErrorNoSongs(QMainWindow):
         self.newBtn.clicked.connect(self.on_new)
 
     def on_new(self):
-        from DiscoverPgGUI import DiscoverPG
+        from Moodipy.DiscoverPgGUI import DiscoverPG
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
-        from ChoosePlaylistGUI import ChoosePlaylistPG
+        from Moodipy.ChoosePlaylistGUI import ChoosePlaylistPG
         Person.choice = "playlist"
         playlists = get_user_playlists()
         if playlists == "NO PLAYLISTS":
