@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from UserSummary import Person
-from ErrorPage import ErrorPG
-from PlaylistGUI import PlaylistPg
+from Moodipy.UserSummary import Person
+from Moodipy.PlaylistGUI import PlaylistPg
 from screeninfo import get_monitors
-import time
+
+
 class ChoosePlaylistPG(QMainWindow):
     def __init__(self):
         max_screen_width = 1536
@@ -21,9 +21,6 @@ class ChoosePlaylistPG(QMainWindow):
         self.width = max(min(temp_width, max_screen_width), min_screen_width)
         temp_height = get_monitors()[0].height * .5
         self.height = max(min(temp_height, max_screen_height), min_screen_height)
-
-        #self.width = get_monitors()[0].width - 150
-        #self.height = get_monitors()[0].height - 80
         self.initUI()
 
     def initUI(self):
@@ -96,9 +93,11 @@ class ChoosePlaylistPG(QMainWindow):
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
+        
     def change_text(self):
         self.newbtn.setText("Please")
         self.nextbtn.setText("Wait...")
+        
     def change_back(self):
         self.newbtn.setText("Discover Page")
         self.nextbtn.setText("Create Playlist")
