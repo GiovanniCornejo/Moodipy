@@ -5,7 +5,7 @@ from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
 from Moodipy.PredictionGUI import PredictPG
 from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
-from playlist_test import get_user_playlists
+from Moodipy.playlist_test import get_user_playlists
 
 
 class DiscoverPG(QMainWindow):
