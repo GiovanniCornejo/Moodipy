@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from UserSummary import Person
+from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
-from PredictionGUI import PredictPG
-from MoodAnalyzerGUI import MoodAnalyzerPg
+from Moodipy.PredictionGUI import PredictPG
+from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
 from playlist_test import get_user_playlists
 
 
