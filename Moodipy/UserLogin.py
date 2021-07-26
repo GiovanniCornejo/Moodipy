@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from Moodipy.UserSummary import Person
-from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+from Moodipy.DiscoverPgGUI import DiscoverPG
 from Moodipy.SpotifyAuthorization import Authorization
 from screeninfo import get_monitors
 from os import path
@@ -48,7 +48,7 @@ class UserLoginPG(QMainWindow):
             f = open(userInfoPath, "w+")
             f.write(self.username.text())
             f.close()
-            self.nextPg = MoodAnalyzerPg()
+            self.nextPg = DiscoverPG()
             self.nextPg.show()
             self.hide()
 
