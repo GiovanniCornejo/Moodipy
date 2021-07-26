@@ -89,7 +89,7 @@ class ChoosePlaylistPG(QMainWindow):
         self.currItem = self.currItem[length:]
 
     def on_click2(self):
-        from DiscoverPgGUI import DiscoverPG
+        from Moodipy.DiscoverPgGUI import DiscoverPG
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
@@ -103,7 +103,7 @@ class ChoosePlaylistPG(QMainWindow):
         self.nextbtn.setText("Create Playlist")
 
     def on_click(self):
-        from playlist_test import generate_playlist_from_another
+        from Moodipy.playlist_test import generate_playlist_from_another
         if self.currItem == None:
             self.pop_up()
         else:
