@@ -26,9 +26,9 @@ class PlaylistPg(QMainWindow):
 
     def mood_window(self):
         # Generate another playlist btn
-        nextbtn = QPushButton("Enter another mood...", self)
-        nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white; hover { background-color : white}")
-        nextbtn.setGeometry(self.sw*800, self.sh*20, self.sw*200, self.sh*30)
+        nextbtn = QPushButton("Discover Page...", self)
+        nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white")
+        nextbtn.setGeometry(self.sw*800, self.sh*20, self.sw*180, self.sh*30)
         nextbtn.clicked.connect(self.on_click)
         # Creates a playlist name
         Person.playlistName = Person.setPlaylistName(Person, Person.moodLabel, Person.currentmood)
@@ -56,8 +56,8 @@ class PlaylistPg(QMainWindow):
             num = num + 1
     # Add another Mood
     def on_click(self):
-        from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
-        self.nextPg = MoodAnalyzerPg()
+        from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
