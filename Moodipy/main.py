@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from Moodipy.UserLogin import UserLoginPG
 from screeninfo import get_monitors
-from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+from Moodipy.DiscoverPgGUI import DiscoverPG
 
 
 class MainWindow(QMainWindow):
@@ -42,8 +42,6 @@ class MainWindow(QMainWindow):
         self.show()
 
     def main_window(self):
-        print(self.width)
-        print(self.height)
         button = QPushButton(self)
         button.setGeometry(self.sw*480, self.sh*450, self.sw*40, self.sh*20)
         arrow_img = path.join(path.join(path.dirname(__file__), "imgs"), "arrow.png")
@@ -71,7 +69,7 @@ class MainWindow(QMainWindow):
             f = open(userInfoPath, "r+")
             Person.userID = f.readline()
             f.close()
-            self.nextPG = MoodAnalyzerPg()
+            self.nextPG = DiscoverPG()
             self.nextPG.show()
             self.hide()
         else:

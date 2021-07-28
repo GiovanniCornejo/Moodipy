@@ -53,8 +53,8 @@ class ErrorPG(QMainWindow):
         self.tryAgainBtn.clicked.connect(self.on_tryAgain)
 
     def on_new(self):
-        from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
-        self.nextPg = MoodAnalyzerPg()
+        from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 

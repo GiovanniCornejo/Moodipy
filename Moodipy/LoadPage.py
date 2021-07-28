@@ -5,6 +5,7 @@ from Moodipy.UserSummary import Person
 from Moodipy.PlaylistGUI import PlaylistPg
 from screeninfo import get_monitors
 from Moodipy.ErrorPage import ErrorPG
+from Moodipy.ErrorNoMatch import ErrorNoSongs
 import time
 
 class LoadPg(QMainWindow):
@@ -49,6 +50,8 @@ class LoadPg(QMainWindow):
         Person.setLabel(self, "Playlist", True, self.sw*385, self.sh*330, self.sw*220, self.sh*35, self.sw*19, "white", False, 'Segoe UI')
 
     def startProgressBar(self):
+        from Moodipy.PlaylistGenerator import generatePlaylist
+        self.startBtn.setEnabled(False)
         for i in range(100):
             time.sleep(0.03)
             self.loadingBar.setValue(i)
@@ -56,6 +59,10 @@ class LoadPg(QMainWindow):
         Person.tracks = generatePlaylist()
         if Person.tracks == None:
             self.nextPg = ErrorPG()
+            self.nextPg.show()
+            self.hide()
+        elif Person.tracks == "NO SONGS":
+            self.nextPg = ErrorNoSongs()
             self.nextPg.show()
             self.hide()
         else:

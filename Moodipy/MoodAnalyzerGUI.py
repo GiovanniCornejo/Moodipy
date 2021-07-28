@@ -1,4 +1,5 @@
 from screeninfo import get_monitors
+from Moodipy.ChoosePlaylistGUI import ChoosePlaylistPG
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -24,6 +25,7 @@ class MoodAnalyzerPg(QMainWindow):
         self.width = max(min(temp_width, max_screen_width), min_screen_width)
         temp_height = get_monitors()[0].height * .5
         self.height = max(min(temp_height, max_screen_height), min_screen_height)
+        self.selected_mood = None
         self.initUI()
 
     def initUI(self):
@@ -143,9 +145,14 @@ class MoodAnalyzerPg(QMainWindow):
             print("Please be more descriptive")
             self.pop_up()
         else:
-            self.nextPg = LoadPg()
-            self.nextPg.show()
-            self.hide()
+            if Person.choice == "likes":
+                self.nextPg = LoadPg()
+                self.nextPg.show()
+                self.hide()
+            elif Person.choice == "playlist":
+                self.nextPg = ChoosePlaylistPG()
+                self.nextPg.show()
+                self.hide()
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'Please be more descriptive', QMessageBox.Ok)
@@ -158,14 +165,17 @@ class MoodAnalyzerPg(QMainWindow):
         if self.selected_mood is None:
             self.pop_up2()
         else:
-            print("your mood: %s" % self.selected_mood)
             mood = []
             mood.append(self.selected_mood)
             Person.currentmood = mood
-            print(Person.currentmood)
-            self.nextPg = LoadPg()
-            self.nextPg.show()
-            self.hide()
+            if Person.choice == "likes":
+                self.nextPg = LoadPg()
+                self.nextPg.show()
+                self.hide()
+            elif Person.choice == "playlist":
+                self.nextPg = ChoosePlaylistPG()
+                self.nextPg.show()
+                self.hide()
     
     def on_happy(self):
         self.selected_mood = "happy"
