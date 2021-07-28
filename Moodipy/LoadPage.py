@@ -10,13 +10,21 @@ import time
 
 class LoadPg(QMainWindow):
     def __init__(self):
+        max_screen_width = 1536
+        min_screen_width = 1000
+
+        max_screen_height = 864
+        min_screen_height = 610
+
         super().__init__()
         self.title = "Load Page"
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = get_monitors()[0].width - 150
-        self.height = get_monitors()[0].height - 80
+        temp_width = get_monitors()[0].width * .5
+        self.width = max(min(temp_width, max_screen_width), min_screen_width)
+        temp_height = get_monitors()[0].height * .5
+        self.height = max(min(temp_height, max_screen_height), min_screen_height)
         self.initUI()
 
     def initUI(self):
