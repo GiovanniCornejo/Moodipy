@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
 
@@ -59,7 +58,14 @@ class ErrorPG(QMainWindow):
         self.hide()
 
     def on_tryAgain(self):
-        from Moodipy.LoadPage import LoadPg
-        self.nextPg = LoadPg()
-        self.nextPg.show()
-        self.hide()
+        if Person.choice == "playlist":
+            from Moodipy.LoadChoiceGUI import LoadChoicePg
+            self.nextPg = LoadChoicePg()
+            self.nextPg.show()
+            self.hide()
+        else:
+            from Moodipy.LoadPage import LoadPg
+            self.nextPg = LoadPg()
+            self.nextPg.show()
+            self.hide()
+            
