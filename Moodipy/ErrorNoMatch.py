@@ -1,9 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
-from Moodipy.playlist_test import get_user_playlists
+from Moodipy.PlaylistToPlaylist import get_user_playlists
 
 class ErrorNoSongs(QMainWindow):
     def __init__(self):
