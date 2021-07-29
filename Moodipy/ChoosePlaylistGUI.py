@@ -34,8 +34,8 @@ class ChoosePlaylistPG(QMainWindow):
         self.show()
 
     def mood_window(self):
-        title = QLabel("Choose A Playlist", self)
-        title.setGeometry(self.sw*20, self.sh*10, self.sw*390, self.sh*45)
+        title = QLabel("Choose Up To Three Playlists", self)
+        title.setGeometry(self.sw*20, self.sh*10, self.sw*690, self.sh*45)
         title.setStyleSheet("background-color:#96bef0; font-weight: bold; color: white")
         title.setFont(QFont('Arial Rounded MT Bold', self.sw*30))
 
@@ -51,6 +51,8 @@ class ChoosePlaylistPG(QMainWindow):
         self.listWidget.setGeometry(0, self.sh * 121, self.width, self.sh * 440)
         scrollBar = QScrollBar(self)
         self.listWidget.setVerticalScrollBar(scrollBar)
+        self.listWidget.itemSelectionChanged.connect(self.check_selection)
+        self.listWidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.listWidget.setStyleSheet("background-color: #96bef0;color: white")
         self.listWidget.itemSelectionChanged.connect(self.on_change)
 
@@ -59,10 +61,15 @@ class ChoosePlaylistPG(QMainWindow):
         self.nextbtn.setGeometry(self.sw * 620, self.sh * 565, self.sw * 180, self.sh * 40)
         self.nextbtn.clicked.connect(self.on_click)
 
+        self.backbtn = QPushButton("Go Back", self)
+        self.backbtn.setStyleSheet("background-color: #c2dcfb; font-weight: bold; border: 5px solid; border-color: #ebf3fb; hover { background-color : white}")
+        self.backbtn.setGeometry(self.sw * 200, self.sh * 565, self.sw * 180, self.sh * 40)
+        self.backbtn.clicked.connect(self.on_click2)
+
         self.newbtn = QPushButton("Discover Page", self)
         self.newbtn.setStyleSheet("background-color: #c2dcfb; font-weight: bold; border: 5px solid; border-color: #ebf3fb; hover { background-color : white}")
-        self.newbtn.setGeometry(self.sw * 200, self.sh * 565, self.sw * 180, self.sh * 40)
-        self.newbtn.clicked.connect(self.on_click2)
+        self.newbtn.setGeometry(self.sw*800, self.sh*20, self.sw*180, self.sh*30)
+        self.newbtn.clicked.connect(self.on_click3)
 
         self.playlists = Person.playlists
         num = 1
@@ -75,75 +82,66 @@ class ChoosePlaylistPG(QMainWindow):
             playlistTitle.setFont(QFont('Arial Rounded MT Bold', self.sw * 20))
             self.listWidget.addItem(playlistTitle)
             num = num + 1
+    
+    def check_selection(self):
+        items = self.listWidget.selectedItems()
+        if len(items) > 3:
+            items[0].setSelected(False)
 
     def on_change(self):
         self.currItem = self.listWidget.selectedItems()
-        self.currItem = str(self.currItem[0].text())
-        num = self.listWidget.currentRow() + 1
-        length = len(str(num))
-        if num < 10:
-            length = length + 5
-        else:
-            length = length + 3
+        currItems = self.currItem
+        names = []
+        for item in currItems:
+            curr = str(item.text())
+            num = item.listWidget().currentRow() + 1
+            length = len(str(num))
+            if num < 10:
+                length = length + 5
+            else:
+                length = length + 3
+            curr = curr[length:]
+            names.append(curr)
 
-        self.currItem = self.currItem[length:]
+        Person.playlistNames = names
 
     def on_click2(self):
+        from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+        self.nextPg = MoodAnalyzerPg()
+        self.nextPg.show()
+        self.hide()
+        
+    def on_click3(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
         
     def change_text(self):
-        self.newbtn.setText("Please")
+        self.backbtn.setText("Please")
         self.nextbtn.setText("Wait...")
+        self.backbtn.setEnabled(False)
+        self.nextbtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         
     def change_back(self):
-        self.newbtn.setText("Discover Page")
+        self.backbtn.setText("Go Back")
         self.nextbtn.setText("Create Playlist")
+        self.backbtn.setEnabled(True)
+        self.nextbtn.setEnabled(True)
+        self.newbtn.setEnabled(True)
 
     def on_click(self):
-        from Moodipy.playlist_test import generate_playlist_from_another
         if self.currItem == None:
             self.pop_up()
         else:
-            self.pop_up_wait()
-            Person.tracks = generate_playlist_from_another(self.currItem, self.playlists)
-            if Person.tracks == None:
-                self.pop_up6()
-            if Person.tracks == "ERROR NO SONGS" and len(self.playlists) > 1:
-                self.pop_up2()
-            elif Person.tracks == "ERROR NO SONGS":
-                self.pop_up3()
-            elif Person.tracks == "NO SONGS" and len(self.playlists) > 1:
-                self.pop_up4()
-            elif Person.tracks == "NO SONGS":
-                self.pop_up5()
-            else:
-                self.nextPg = PlaylistPg()
-                self.nextPg.show()
-                self.hide()
-
+            from Moodipy.LoadChoiceGUI import LoadChoicePg
+            self.nextPg = LoadChoicePg()
+            self.nextPg.show()
+            self.hide()
+            
         self.change_back()
+
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'Please select a playlist.', QMessageBox.Ok)
-
-    def pop_up2(self):
-        msg = QMessageBox.question(self, 'Error', 'There are no songs in the playlist you selected. Try adding some or choose another playlist!', QMessageBox.Ok)
-
-    def pop_up3(self):
-        msg = QMessageBox.question(self, 'Error', 'There are no songs in the playlist you selected. Try adding some or go back to the Discover Page!', QMessageBox.Ok)
-
-    def pop_up4(self):
-        msg = QMessageBox.question(self, 'Error', 'Hmm, we could not find any songs in the playlist that matches your mood, try selecting another playlist or go back to the Discover Page!', QMessageBox.Ok)
-
-    def pop_up5(self):
-        msg = QMessageBox.question(self, 'Error', 'Hmm, we could not find any songs in the playlist that matches your mood, try adding more songs/playlists or go back to the Discover Page!', QMessageBox.Ok)
-
-    def pop_up6(self):
-        msg = QMessageBox.question(self, 'Error', 'Sorry we encontered an Error. Please try again or go back to the Discovery Page.', QMessageBox.Ok)
-
-    def pop_up_wait(self):
-        self.change_text()
-        msg = QMessageBox.question(self, 'Loading', 'Please wait while we generate your playlist! Press OK or exit this message to start!', QMessageBox.Ok)
