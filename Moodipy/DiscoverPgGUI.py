@@ -3,9 +3,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
-from Moodipy.PredictionGUI import PredictPG
 from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
-from Moodipy.playlist_test import get_user_playlists
+from Moodipy.PlaylistToPlaylist import get_user_playlists
 
 
 class DiscoverPG(QMainWindow):
@@ -59,7 +58,8 @@ class DiscoverPG(QMainWindow):
         self.playlistLikes.clicked.connect(self.on_likes)
 
     def on_popular(self):
-        self.nextPg = PredictPG()
+        from LoadPredictionGUI import LoadPredictPg
+        self.nextPg = LoadPredictPg()
         self.nextPg.show()
         self.hide()
 
