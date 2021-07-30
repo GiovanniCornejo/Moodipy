@@ -1,4 +1,4 @@
-from SpotifyAuthorization import Authorization
+from Moodipy.SpotifyAuthorization import Authorization
 from random import sample
 import requests.exceptions
 import spotipy
