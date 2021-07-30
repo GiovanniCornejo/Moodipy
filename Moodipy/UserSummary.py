@@ -7,18 +7,18 @@ class Person:
         self.__currentMood = []
         self.__userID = None
         self.__moodLabel = None
-        self.__playlistName = None
+        self.__playlistNames = None
         self.__tracks = None
         self.__choice = None
         self.__playlists = None
 
     @property
-    def playlistName(self):
-        return self.__playlistName
+    def playlistNames(self):
+        return self.__playlistNames
 
-    @playlistName.setter
-    def playlistName(self, title):
-       self.__playlistName = title
+    @playlistNames.setter
+    def playlistNames(self, names):
+       self.__playlistNames = names
 
     def setPlaylistName(self, label, currMood):
         playlistName = ''
