@@ -36,7 +36,7 @@ class ErrorNoPopSongs(QMainWindow):
         back = QLabel(self)
         back.setGeometry(self.sw * 100, self.sh * 150, self.sw * 800, self.sh * 300)
         back.setStyleSheet("background-color: #ffe0ff;border-radius:10px;")
-        Person.setLabel(self, "Hmm, We Couldn't Find Any Popular Songs.", True, self.sw * 130, self.sh * 200, self.sw * 740, self.sh * 50, self.sw * 25, "#ffe0ff", True, 'Segoe UI')
+        Person.setLabel(self, "Hmm, We Couldn't Find Any Popular Songs.", True, self.sw * 130, self.sh * 200, self.sw * 740, self.sh * 50, self.sw * 20, "#ffe0ff", True, 'Segoe UI')
         Person.setLabel(self, "Please Try Again Later.", True, self.sw*130, self.sh*300, self.sw*740, self.sh*50, self.sw*25, "#ffe0ff", True, 'Segoe UI')
 
         self.tryAgainBtn = QPushButton("Try Again", self)
@@ -53,12 +53,16 @@ class ErrorNoPopSongs(QMainWindow):
 
     def on_new(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.tryAgainBtn.setEnabled(False)
+        self.newBtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
         from Moodipy.LoadPredictionGUI import LoadPredictPg
+        self.tryAgainBtn.setEnabled(False)
+        self.newBtn.setEnabled(False)
         self.nextPg = LoadPredictPg()
         self.nextPg.show()
         self.hide()
