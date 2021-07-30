@@ -78,6 +78,8 @@ class LoadPg(QMainWindow):
             self.hide()
     def on_back(self):
         from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+        self.startBtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
         self.hide()
