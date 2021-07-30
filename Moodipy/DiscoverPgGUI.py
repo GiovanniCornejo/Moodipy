@@ -58,7 +58,7 @@ class DiscoverPG(QMainWindow):
         self.playlistLikes.clicked.connect(self.on_likes)
 
     def on_popular(self):
-        from LoadPredictionGUI import LoadPredictPg
+        from Moodipy.LoadPredictionGUI import LoadPredictPg
         self.nextPg = LoadPredictPg()
         self.nextPg.show()
         self.hide()
