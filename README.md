@@ -17,6 +17,11 @@ Uses sentiment analysis to create a playlist on spotify that matches someone's m
   *  A spotify premium account 
   *  Some liked songs/data in their library
   *  Public Playlists if they would like to try to create a playlist from one of their existing playlists
+### If you get the Error: Could not load the Qt platform plugin :
+  * qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+* Then run: 
+  * sudo apt-get install libqt5x11extras5
 
 ### Required packages commands if the distribution is not found in PYPI: 
 * screeninfo:
