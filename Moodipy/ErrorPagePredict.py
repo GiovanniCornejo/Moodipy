@@ -52,12 +52,16 @@ class ErrorPredictPG(QMainWindow):
 
     def on_new(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.newBtn.setEnabled(False)
+        self.tryAgainBtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
         from Moodipy.LoadPredictionGUI import LoadPredictPg
+        self.newBtn.setEnabled(False)
+        self.tryAgainBtn.setEnabled(False)
         self.nextPg = LoadPredictPg()
         self.nextPg.show()
         self.hide()
