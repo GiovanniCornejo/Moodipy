@@ -192,7 +192,7 @@ class User(Spotify):
                     if num_hits >= 3:
                         emotion_tracks.append(track)
 
-        elif base_emotion == "bad" or base_emotion == "anger":
+        elif base_emotion == "bad" or base_emotion == "anger" or base_emotion == "disgust":
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
