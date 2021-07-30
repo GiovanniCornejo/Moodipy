@@ -18,7 +18,10 @@ def find_mood(entry):
     text = [entry]
     vect = cv.transform(text).toarray()
     predictions = model.predict_proba(vect)
-    all_predictions = dict(zip(model.classes_, predictions[0]))
-    emotions = sorted(all_predictions, key=all_predictions.get, reverse=True)[:2]
+    try:
+        all_predictions = dict(zip(model.classes_, predictions[0]))
+        emotions = sorted(all_predictions, key=all_predictions.get, reverse=True)[:2]
+    except:
+        return None
 
     return emotions
