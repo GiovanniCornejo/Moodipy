@@ -53,11 +53,15 @@ class ErrorPG(QMainWindow):
 
     def on_new(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.newBtn.setEnabled(False)
+        self.tryAgainBtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
+        self.newBtn.setEnabled(False)
+        self.tryAgainBtn.setEnabled(False)
         if Person.choice == "playlist":
             from Moodipy.LoadChoiceGUI import LoadChoicePg
             self.nextPg = LoadChoicePg()
