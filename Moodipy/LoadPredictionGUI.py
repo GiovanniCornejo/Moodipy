@@ -76,6 +76,8 @@ class LoadPredictPg(QMainWindow):
 
     def on_back(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.startBtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
