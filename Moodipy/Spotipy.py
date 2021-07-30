@@ -142,31 +142,34 @@ class User(Spotify):
         af_pop = {}
         for i, popular_song in enumerate(popular_songs):
             af_popular = client._spotify_client.audio_features(popular_song['uri'])[0]
-            af_pop[i] = af_popular
+            if af_popular is not None:
+                af_pop[i] = af_popular
 
         for new_song in new_songs:
             af_new = client._spotify_client.audio_features(new_song['uri'])[0]
-            for i, popular_song in enumerate(popular_songs):
-                num_hits = 0
-                if -0.06 <= (af_pop[i]['acousticness'] - af_new['acousticness']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['danceability'] - af_new['danceability']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['energy'] - af_new['energy']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['instrumentalness'] - af_new['instrumentalness']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['speechiness'] - af_new['speechiness']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['valence'] - af_new['valence']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['tempo'] - af_new['tempo']) <= 0.06:
-                    num_hits += 1
-                if -0.06 <= (af_pop[i]['loudness'] - af_new['loudness']) <= 0.06:
-                    num_hits += 1
-                if num_hits > 4:
-                    prediction_tracks.append(new_song)
-                    break
+            if af_new is not None:
+                for i, popular_song in enumerate(popular_songs):
+                    num_hits = 0
+                    if af_pop[i] is not None:
+                        if -0.06 <= (af_pop[i]['acousticness'] - af_new['acousticness']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['danceability'] - af_new['danceability']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['energy'] - af_new['energy']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['instrumentalness'] - af_new['instrumentalness']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['speechiness'] - af_new['speechiness']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['valence'] - af_new['valence']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['tempo'] - af_new['tempo']) <= 0.06:
+                            num_hits += 1
+                        if -0.06 <= (af_pop[i]['loudness'] - af_new['loudness']) <= 0.06:
+                            num_hits += 1
+                        if num_hits > 4:
+                            prediction_tracks.append(new_song)
+                            break
         return prediction_tracks
     # Returns a List of the Users Songs Matching Emotion
     def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
