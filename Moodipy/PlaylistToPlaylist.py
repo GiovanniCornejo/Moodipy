@@ -24,16 +24,19 @@ def get_user_playlists():
         return None
 
 
-def generate_playlist_from_another(playlist_names, user_playlist_data):
+def generate_playlist_from_another(playlist_names, user_playlist_data, loading_bar):
     try:
         """
         Step 1: Get Desired Playlist
         """
+
         user, client = Authorization()
         user_songs = []
         for playlist in playlist_names:
             playlist_id = user_playlist_data[playlist]
             user_songs.extend(user.get_user_playlist_tracks(playlist_id))
+
+        loading_bar.setValue(5)
 
         if len(user_songs) == 0:
             return "ERROR NO SONGS"
@@ -45,11 +48,12 @@ def generate_playlist_from_another(playlist_names, user_playlist_data):
             first_emotion = Person.currentmood[0]
             second_emotion = Person.currentmood[1]
 
-        emotion_tracks = user.get_user_emotion_tracks(client=client, user_tracks=user_songs, base_emotion=first_emotion,
-                                                    second_emotion=second_emotion)
+        emotion_tracks = user.get_user_emotion_tracks(client=client, loading_bar=loading_bar, user_tracks=user_songs,
+                                                      base_emotion=first_emotion, second_emotion=second_emotion)
 
         if len(emotion_tracks) == 0:
             return "NO SONGS"
+
         """
         Step 2: Create a Playlist for the User
         """

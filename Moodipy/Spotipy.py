@@ -172,8 +172,9 @@ class User(Spotify):
                             break
         return prediction_tracks
     # Returns a List of the Users Songs Matching Emotion
-    def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
+    def get_user_emotion_tracks(self, loading_bar, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
         emotion_tracks = []
+        loading_bar.setValue(50)
         if base_emotion == "sadness" or base_emotion == "awful" or second_emotion == "sadness" or second_emotion == "awful":
             for track in user_tracks:
                 af = client._spotify_client.audio_features(track['uri'])[0]

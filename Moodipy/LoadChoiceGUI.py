@@ -57,11 +57,11 @@ class LoadChoicePg(QMainWindow):
         from Moodipy.PlaylistToPlaylist import generate_playlist_from_another
         self.startBtn.setEnabled(False)
         self.newbtn.setEnabled(False)
-        for i in range(100):
-            time.sleep(0.01)
-            self.loadingBar.setValue(i)
+        #for i in range(100):
+        #    time.sleep(0.01)
+        #    self.loadingBar.setValue(i)
 
-        Person.tracks = generate_playlist_from_another(Person.playlistNames, Person.playlists)
+        Person.tracks = generate_playlist_from_another(Person.playlistNames, Person.playlists, self.loadingBar)
         if Person.tracks == None:
             self.nextPg = ErrorPG()
             self.nextPg.show()
