@@ -34,10 +34,10 @@ class PlaylistPg(QMainWindow):
 
     def mood_window(self):
         # Generate another playlist btn
-        nextbtn = QPushButton("Discover Page...", self)
-        nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white")
-        nextbtn.setGeometry(self.sw*800, self.sh*20, self.sw*180, self.sh*30)
-        nextbtn.clicked.connect(self.on_click)
+        self.nextbtn = QPushButton("Discover Page...", self)
+        self.nextbtn.setStyleSheet("background-color:rgba(208, 255, 244, 255); font-weight: bold; border: 5px solid; border-color:white")
+        self.nextbtn.setGeometry(self.sw*800, self.sh*20, self.sw*180, self.sh*30)
+        self.nextbtn.clicked.connect(self.on_click)
         # Creates a playlist name
         Person.playlistName = Person.setPlaylistName(Person, Person.moodLabel, Person.currentmood)
         Person.setLabel(self, Person.playlistName, False, self.sw * 350, self.sh * 80, self.sw * 520, self.sh * 58, self.sw * 30, "rgba(161, 223, 204, 255)", True, "Segoe UI")
@@ -65,6 +65,7 @@ class PlaylistPg(QMainWindow):
     # Add another Mood
     def on_click(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.nextbtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
