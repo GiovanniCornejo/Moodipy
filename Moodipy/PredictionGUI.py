@@ -65,6 +65,7 @@ class PredictPG(QMainWindow):
 
     def on_click2(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.newbtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
