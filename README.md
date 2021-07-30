@@ -2,7 +2,7 @@
 Uses sentiment analysis to create a playlist on spotify that matches someone's mood and also predict songs to rise in popularity.
 * Users are able to choose whether to create a playlist based on their spotify data, such as liked songs and top artists, or from their own public playlists.
 * We used the newest songs of the week and current top 50 Global Songs on spotify to predict which new songs are most likely going to rise in popularity.
-* 
+
 ## Installation instructions
 
 ### Package name for PIP installation:
