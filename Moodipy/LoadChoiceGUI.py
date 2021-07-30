@@ -83,6 +83,8 @@ class LoadChoicePg(QMainWindow):
 
     def on_back(self):
         from Moodipy.ChoosePlaylistGUI import ChoosePlaylistPG
+        self.newbtn.setEnabled(False)
+        self.startBtn.setEnabled(False)
         self.nextPg = ChoosePlaylistPG()
         self.nextPg.show()
         self.hide()
