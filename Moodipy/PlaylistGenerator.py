@@ -13,16 +13,11 @@ def generatePlaylist():
         Step 0: Get Users Liked Songs
         """
         user, client = Authorization()
-        print("checkpoint 0")
-
         user_songs = user.get_user_saved_tracks()
-        print("checkpoint 1")
         if len(user_songs) < 250:
             user_songs = user.get_user_top_artists_tracks()
-            print("checkpoint 1.5")
             if len(user_songs) < 50:
                 user_songs = user.get_user_top_tracks()
-                print("checkpoint 1.5.2")
                 if len(user_songs) == 0:
                     return "NO SONGS"
                 
@@ -44,7 +39,6 @@ def generatePlaylist():
         if len(emotion_tracks) == 0:
             return "NO SONGS"
         
-        print("checkpoint 2")
 
         """
         Step 2: Create a Playlist for the User
@@ -64,13 +58,11 @@ def generatePlaylist():
                                                         "analysis to create a playlist that matches someone's mood. "
 
         playlist_id = user.create_playlist(playlist_name=playlist_name, description=description)
-        print("checkpoint 3")
 
         """
         Step 3: Add Songs to a Playlist
         """
         user.add_to_playlist(playlist_id=playlist_id, playlist_tracks=emotion_tracks)
-        print("checkpoint 4")
 
         return tracks
     
