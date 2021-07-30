@@ -26,7 +26,7 @@ class Person:
             playlistName = "Happy Vibes"
         elif label == "Awful" or currMood[0] == "sadness":
             playlistName = "Downbeat and Angst"
-        elif label == "Bad" or currMood[0] == "anger":
+        elif label == "Bad" or currMood[0] == "anger" or currMood[0] == "disgust":
             playlistName = "Rage and Loathing"
         elif label == "Okay" or currMood[0] == "fear":
             playlistName = "It's Gonna be Okayyy"
