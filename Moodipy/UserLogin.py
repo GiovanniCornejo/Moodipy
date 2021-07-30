@@ -42,12 +42,13 @@ class UserLoginPG(QMainWindow):
         self.username.setGeometry(self.sw*380, self.sh*260, self.sw*270, self.sh*29)
         self.username.setStyleSheet("background-color: white")
 
-        loginbtn = QPushButton("LOGIN", self)
-        loginbtn.setGeometry(self.sw*450, self.sh*380, self.sw*150, self.sh*40)
-        loginbtn.setStyleSheet("color: rgb(255, 255, 255); background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #ccccff, stop:1 rgb(240, 53, 218)); border-style: solid; border-radius:20px;")
-        loginbtn.clicked.connect(self.on_click)
+        self.loginbtn = QPushButton("LOGIN", self)
+        self.loginbtn.setGeometry(self.sw*450, self.sh*380, self.sw*150, self.sh*40)
+        self.loginbtn.setStyleSheet("color: rgb(255, 255, 255); background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #ccccff, stop:1 rgb(240, 53, 218)); border-style: solid; border-radius:20px;")
+        self.loginbtn.clicked.connect(self.on_click)
 
     def on_click(self):
+        self.loginbtn.setEnabled(False)
         Person.userID = (self.username.text())
         if Authorization() == None:
             self.pop_up()
@@ -62,5 +63,6 @@ class UserLoginPG(QMainWindow):
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Invalid Username', 'Please enter a valid username', QMessageBox.Ok)
+        self.loginbtn.setEnabled(True)
 
 
