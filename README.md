@@ -1,19 +1,19 @@
 # Moodipy
 Uses sentiment analysis to create a playlist on spotify that matches someone's mood and also predict songs to rise in popularity.
-
-
-
+* Users are able to choose whether to create a playlist based on their spotify data, such as liked songs and top artists, or from their own public playlists.
+* We used the newest songs of the week and current top 50 Global Songs on spotify to predict which new songs are most likely going to rise in popularity.
+* 
 ## Installation instructions
 
 ### Package name for PIP installation:
-* pip install Moodipy==0.119
+* pip install Moodipy==0.123
 ### Executable command:
 * Moodipy
 ### Link to repository:
 * https://github.com/dianas11xx/Moodify
 
 ### App Requirements
-* In our current prototype, the user needs to have a spotify premium account and have some liked songs in their library.
+* In our current prototype, the user needs to have a spotify premium account and have some liked songs/data in their library. 
 
 ### Required packages commands if the distribution is not found in PYPI: 
 * screeninfo:
