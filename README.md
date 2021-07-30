@@ -13,7 +13,10 @@ Uses sentiment analysis to create a playlist on spotify that matches someone's m
 * https://github.com/dianas11xx/Moodify
 
 ### App Requirements
-* In our current prototype, the user needs to have a spotify premium account and have some liked songs/data in their library. 
+* In our current prototype, the user needs to have:
+  *  A spotify premium account 
+  *  Some liked songs/data in their library
+  *  Public Playlists if they would like to try to create a playlist from one of their existing playlists
 
 ### Required packages commands if the distribution is not found in PYPI: 
 * screeninfo:
