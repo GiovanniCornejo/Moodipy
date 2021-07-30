@@ -37,8 +37,14 @@ class LoadPg(QMainWindow):
         self.loadingBar.setStyleSheet("background-color: #d4d4ff")
         self.loadingBar.setGeometry(self.sw*400, self.sh*420, self.sw*200, self.sh*25)
         self.startBtn = QPushButton("Start", self)
-        self.startBtn.move(self.sw*453, self.sh*460)
+        self.startBtn.move(self.sw*450, self.sh*460)
         self.startBtn.clicked.connect(self.startProgressBar)
+        
+        self.newbtn = QPushButton("Go Back", self)
+        self.newbtn.setStyleSheet("background-color: #e4e4f9; font-weight: bold; border: 5px solid; border-color: white")
+        self.newbtn.setGeometry(self.sw * 410, self.sh * 565, self.sw * 180, self.sh * 40)
+        self.newbtn.clicked.connect(self.on_back)
+        
         self.mood_window()
         self.show()
 
@@ -52,8 +58,9 @@ class LoadPg(QMainWindow):
     def startProgressBar(self):
         from Moodipy.PlaylistGenerator import generatePlaylist
         self.startBtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         for i in range(100):
-            time.sleep(0.03)
+            time.sleep(0.01)
             self.loadingBar.setValue(i)
 
         Person.tracks = generatePlaylist()
@@ -69,8 +76,12 @@ class LoadPg(QMainWindow):
             self.nextPg = PlaylistPg()
             self.nextPg.show()
             self.hide()
-
-
+    def on_back(self):
+        from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+        self.nextPg = MoodAnalyzerPg()
+        self.nextPg.show()
+        self.hide()
+        
     def paintEvent(self, event):
         paint = QPainter(self)
         paint.setPen(QPen(Qt.white, 5, Qt.SolidLine))
