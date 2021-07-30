@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 from Moodipy.UserSummary import Person
 from screeninfo import get_monitors
 from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
@@ -59,11 +58,17 @@ class DiscoverPG(QMainWindow):
 
     def on_popular(self):
         from Moodipy.LoadPredictionGUI import LoadPredictPg
+        self.popularBtn.setEnabled(False)
+        self.ownPlaylist.setEnabled(False)
+        self.playlistLikes.setEnabled(False)
         self.nextPg = LoadPredictPg()
         self.nextPg.show()
         self.hide()
 
     def on_ownPlay(self):
+        self.popularBtn.setEnabled(False)
+        self.ownPlaylist.setEnabled(False)
+        self.playlistLikes.setEnabled(False)
         Person.choice = "playlist"
         playlists = get_user_playlists()
         if playlists == "NO PLAYLISTS":
@@ -77,6 +82,9 @@ class DiscoverPG(QMainWindow):
             self.hide()
 
     def on_likes(self):
+        self.popularBtn.setEnabled(False)
+        self.ownPlaylist.setEnabled(False)
+        self.playlistLikes.setEnabled(False)
         Person.choice = "likes"
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
@@ -84,6 +92,12 @@ class DiscoverPG(QMainWindow):
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'You have no public playlists, try adding some!', QMessageBox.Ok)
+        self.popularBtn.setEnabled(True)
+        self.ownPlaylist.setEnabled(True)
+        self.playlistLikes.setEnabled(True)
 
     def pop_up2(self):
         msg = QMessageBox.question(self, 'Error', 'Sorry, we have encountered a error. Try again later.', QMessageBox.Ok)
+        self.popularBtn.setEnabled(True)
+        self.ownPlaylist.setEnabled(True)
+        self.playlistLikes.setEnabled(True)
