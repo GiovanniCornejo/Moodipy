@@ -3,7 +3,6 @@ from Moodipy.ChoosePlaylistGUI import ChoosePlaylistPG
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from Moodipy.moodAnalyzer import find_mood
 from Moodipy.UserSummary import Person
 from Moodipy.LoadPage import LoadPg
 from os import path
@@ -65,10 +64,10 @@ class MoodAnalyzerPg(QMainWindow):
         self.newbtn.clicked.connect(self.on_main)
 
         # Text submit button
-        btn1 = QPushButton("submit", self)
-        btn1.clicked.connect(self.on_click)
-        btn1.setGeometry(self.sw*200, self.sh*500, self.sw*80, self.sh*20)
-        btn1.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
+        self.btn1 = QPushButton("submit", self)
+        self.btn1.clicked.connect(self.on_click)
+        self.btn1.setGeometry(self.sw*200, self.sh*500, self.sw*80, self.sh*20)
+        self.btn1.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
         
         #awful image/btn
         awful_img = QPushButton(self)
@@ -143,40 +142,74 @@ class MoodAnalyzerPg(QMainWindow):
         self.love_btn.clicked.connect(self.on_love)
         
         # Mood submit button
-        btn2 = QPushButton("submit", self)
-        btn2.clicked.connect(self.on_click2)
-        btn2.setGeometry(self.sw*720, self.sh*500, self.sw*80, self.sh*20)
-        btn2.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
+        self.btn2 = QPushButton("submit", self)
+        self.btn2.clicked.connect(self.on_click2)
+        self.btn2.setGeometry(self.sw*720, self.sh*500, self.sw*80, self.sh*20)
+        self.btn2.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
     
     def on_main(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.newbtn.setStyleSheet("background-color: #EEF1FF; font-weight: bold; border: 5px solid; border-color: white")
+        self.btn1.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.btn2.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.btn1.setEnabled(False)
+        self.btn2.setEnabled(False)
+        self.newbtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
     
     def on_click(self):
-        Person.currentmood = find_mood(self.text.toPlainText())
-        if Person.currentmood is None:
-            print("Please be more descriptive")
+        from Moodipy.moodAnalyzer import find_mood
+        self.btn1.setStyleSheet("background-color: #EEF1FF;border-radius:10px;")
+        self.btn2.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.newbtn.setStyleSheet("background-color: #99acff; font-weight: bold; border: 5px solid; border-color: white")
+        self.btn1.setEnabled(False)
+        self.btn2.setEnabled(False)
+        self.newbtn.setEnabled(False)
+        
+        if self.text.toPlainText() == "":
             self.pop_up()
         else:
-            if Person.choice == "likes":
-                self.nextPg = LoadPg()
-                self.nextPg.show()
-                self.hide()
-            elif Person.choice == "playlist":
-                self.nextPg = ChoosePlaylistPG()
-                self.nextPg.show()
-                self.hide()
+            Person.currentmood = find_mood(self.text.toPlainText())
+            if Person.currentmood is None:
+                self.pop_up()
+            else:
+                if Person.choice == "likes":
+                    self.nextPg = LoadPg()
+                    self.nextPg.show()
+                    self.hide()
+                elif Person.choice == "playlist":
+                    self.nextPg = ChoosePlaylistPG()
+                    self.nextPg.show()
+                    self.hide()
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'Please be more descriptive', QMessageBox.Ok)
+        self.btn1.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.btn2.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.newbtn.setStyleSheet("background-color: #99acff; font-weight: bold; border: 5px solid; border-color: white")
+        self.btn1.setEnabled(True)
+        self.btn2.setEnabled(True)
+        self.newbtn.setEnabled(True)
     
     def pop_up2(self):
         msg = QMessageBox.question(self, 'Error', 'Please select a mood', QMessageBox.Ok)
+        self.btn1.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.btn2.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.newbtn.setStyleSheet("background-color: #99acff; font-weight: bold; border: 5px solid; border-color: white")
+        self.btn1.setEnabled(True)
+        self.btn2.setEnabled(True)
+        self.newbtn.setEnabled(True)
 
 
     def on_click2(self):
+        self.btn1.setStyleSheet("background-color: #abbdff;border-radius:10px;")
+        self.btn2.setStyleSheet("background-color: #EEF1FF;border-radius:10px;")
+        self.newbtn.setStyleSheet("background-color: #99acff; font-weight: bold; border: 5px solid; border-color: white")
+        self.btn1.setEnabled(False)
+        self.btn2.setEnabled(False)
+        self.newbtn.setEnabled(False)
         if self.selected_mood is None:
             self.pop_up2()
         else:
