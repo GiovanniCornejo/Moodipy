@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from Moodipy.UserSummary import Person
-from Moodipy.PlaylistGUI import PlaylistPg
 from screeninfo import get_monitors
 
 
@@ -108,31 +107,27 @@ class ChoosePlaylistPG(QMainWindow):
 
     def on_click2(self):
         from Moodipy.MoodAnalyzerGUI import MoodAnalyzerPg
+        self.nextbtn.setEnabled(False)
+        self.backbtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         self.nextPg = MoodAnalyzerPg()
         self.nextPg.show()
         self.hide()
         
     def on_click3(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.nextbtn.setEnabled(False)
+        self.backbtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
         
-    def change_text(self):
-        self.backbtn.setText("Please")
-        self.nextbtn.setText("Wait...")
-        self.backbtn.setEnabled(False)
-        self.nextbtn.setEnabled(False)
-        self.newbtn.setEnabled(False)
-        
-    def change_back(self):
-        self.backbtn.setText("Go Back")
-        self.nextbtn.setText("Create Playlist")
-        self.backbtn.setEnabled(True)
-        self.nextbtn.setEnabled(True)
-        self.newbtn.setEnabled(True)
 
     def on_click(self):
+        self.nextbtn.setEnabled(False)
+        self.backbtn.setEnabled(False)
+        self.newbtn.setEnabled(False)
         if self.currItem == None:
             self.pop_up()
         else:
@@ -140,9 +135,10 @@ class ChoosePlaylistPG(QMainWindow):
             self.nextPg = LoadChoicePg()
             self.nextPg.show()
             self.hide()
-            
-        self.change_back()
 
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'Please select a playlist.', QMessageBox.Ok)
+        self.nextbtn.setEnabled(True)
+        self.backbtn.setEnabled(True)
+        self.newbtn.setEnabled(True)
