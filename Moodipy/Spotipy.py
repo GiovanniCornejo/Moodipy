@@ -56,13 +56,13 @@ class User(Spotify):
         while (len(items) > 0):
             try:
                 items = self._user_client.current_user_saved_tracks(50, 50 * i)['items']
-            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError,spotipy.oauth2.SpotifyOauthError):
+            except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError, spotipy.oauth2.SpotifyOauthError):
                 return results
             if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
             i += 1
-            if i > 10:  # FOR TESTING PURPOSES, 100 songs only
+            if i > 10:
                 break
         return results
 
@@ -80,7 +80,6 @@ class User(Spotify):
                     results.append(item)
 
             i += 1
-
             if i > 10:
                 break
 
@@ -109,7 +108,6 @@ class User(Spotify):
 
     def get_popular_songs(self):
         i, items, results = 0, ['1'], []
-        #artists = []
         while (len(items) > 0):
             try:
                 top_global = self._user_client.playlist_items("37i9dQZEVXbNG2KDcFcKOF", limit=50, offset=50 * i)['items']
@@ -123,6 +121,7 @@ class User(Spotify):
                 break
 
         return results
+
     def get_newest_songs(self):
         i, items, results = 0, ['1'], []
         while (len(items) > 0):
@@ -151,7 +150,7 @@ class User(Spotify):
                 num_hits = 0
                 if -0.06 <= (af_pop[i]['acousticness'] - af_new['acousticness']) <= 0.06:
                     num_hits += 1
-                if -0.06 <= (af_pop[i]['danceability']- af_new['danceability']) <= 0.06:
+                if -0.06 <= (af_pop[i]['danceability'] - af_new['danceability']) <= 0.06:
                     num_hits += 1
                 if -0.06 <= (af_pop[i]['energy'] - af_new['energy']) <= 0.06:
                     num_hits += 1
@@ -169,9 +168,6 @@ class User(Spotify):
                     prediction_tracks.append(new_song)
                     break
         return prediction_tracks
-
-
-
     # Returns a List of the Users Songs Matching Emotion
     def get_user_emotion_tracks(self, client=None, user_tracks=None, base_emotion=None, second_emotion=""):
         emotion_tracks = []
@@ -190,7 +186,7 @@ class User(Spotify):
                         num_hits += 1
                     if af['tempo'] < 120:
                         num_hits += 1
-                    if num_hits > 3:
+                    if num_hits >= 3:
                         emotion_tracks.append(track)
 
         elif base_emotion == "bad" or base_emotion == "anger":
@@ -198,13 +194,15 @@ class User(Spotify):
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
                 if af is not None:
-                    if af['loudness'] > 0.5:
+                    if af['loudness'] > -11:
                         num_hits += 1
                     if af['energy'] > 0.5:
                         num_hits += 1
-                    if af['tempo'] > 120:
+                    if af['tempo'] > 110:
                         num_hits += 1
-                    if af['speechiness'] > 0.5:
+                    if af['speechiness'] < 0.4:
+                        num_hits += 1
+                    if af['valence'] < 0.3:
                         num_hits += 1
                     if num_hits > 3:
                         emotion_tracks.append(track)
@@ -214,15 +212,15 @@ class User(Spotify):
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
                 if af is not None:
-                    if af['danceability'] < 0.5:
+                    if af['danceability'] < 0.6:
                         num_hits += 1
-                    if af['instrumentalness'] > 0.5:
+                    if af['instrumentalness'] < 0.1:
                         num_hits += 1
-                    if af['loudness'] > 0.5:
+                    if af['loudness'] < -9:
                         num_hits += 1
-                    if af['valence'] < 0.5:
+                    if 0.3 <= af['valence'] <= 0.7:
                         num_hits += 1
-                    if af['energy'] <= 0.5:
+                    if af['energy'] <= 0.5 :
                         num_hits += 1
                     if num_hits > 3:
                         emotion_tracks.append(track)
@@ -240,7 +238,7 @@ class User(Spotify):
                         num_hits += 1
                     if af['tempo'] > 100:
                         num_hits += 1
-                    if af['loudness'] > 0.5:
+                    if af['loudness'] > -7:
                         num_hits += 1
                     if num_hits > 3:
                         emotion_tracks.append(track)
@@ -250,13 +248,15 @@ class User(Spotify):
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
                 if af is not None:
-                    if af['energy'] > 0.5:
+                    if af['energy'] > 0.7:
                         num_hits += 1
-                    if af['loudness'] > 0.5:
+                    if af['loudness'] > -9:
                         num_hits += 1
                     if af['tempo'] > 120:
                         num_hits += 1
-                    if af['danceability'] > 0.5:
+                    if af['danceability'] >= 0.6:
+                        num_hits += 1
+                    if af['valence'] >= 0.7:
                         num_hits += 1
                     if num_hits > 3:
                         emotion_tracks.append(track)
@@ -266,13 +266,17 @@ class User(Spotify):
                 af = client._spotify_client.audio_features(track['id'])[0]
                 num_hits = 0
                 if af is not None:
-                    if af['valence'] > 0.5:
+                    if af['energy'] < 0.5:
+                        num_hits += 1
+                    if af['speechiness'] < 0.07:
+                        num_hits += 1
+                    if af['valence'] < 0.5:
                         num_hits += 1
                     if af['tempo'] < 120:
                         num_hits += 1
                     if af['instrumentalness'] < 0.5:
                         num_hits += 1
-                    if af['mode'] == 0:
+                    if af['mode'] == 1:
                         num_hits += 1
                     if num_hits > 3:
                         emotion_tracks.append(track)
@@ -304,10 +308,11 @@ class User(Spotify):
             if (len(items) != 0):
                 for item in items:
                     results.append(item['track'])
-                i += 1
-                if i > 10:
-                    break
-            return results
+
+            i += 1
+            if i > 10:
+                break
+        return results
 
 
     # Creates a New Playlist for the User
