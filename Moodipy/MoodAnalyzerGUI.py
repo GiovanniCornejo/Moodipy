@@ -71,10 +71,11 @@ class MoodAnalyzerPg(QMainWindow):
         btn1.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
         
         #awful image/btn
-        awful_img = QLabel(self)
+        awful_img = QPushButton(self)
         awful_img.setGeometry(self.sw*630, self.sh*130, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "awful.jpeg")
-        awful_img.setStyleSheet("border-image : url(%s);" % currMood)
+        awful_img.setStyleSheet("border-image : url(" + currMood + ");")
+        awful_img.clicked.connect(self.on_awful)
         self.awful_btn = QPushButton("awful", self)
         self.awful_btn.setGeometry(self.sw*645, self.sh*225, self.sw*65, self.sh*20)
         self.awful_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
@@ -82,10 +83,11 @@ class MoodAnalyzerPg(QMainWindow):
         self.awful_btn.clicked.connect(self.on_awful)
         
         #bad image/btn
-        bad_img = QLabel(self)
+        bad_img = QPushButton(self)
         bad_img.setGeometry(self.sw*780, self.sh*130, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "bad.jpeg")
-        bad_img.setStyleSheet("border-image : url(%s);" % currMood)
+        bad_img.setStyleSheet("border-image : url(" + currMood + ");")
+        bad_img.clicked.connect(self.on_bad)
         self.bad_btn = QPushButton("bad", self)
         self.bad_btn.setGeometry(self.sw*793, self.sh*225, self.sw*65, self.sh*20)
         self.bad_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
@@ -93,10 +95,11 @@ class MoodAnalyzerPg(QMainWindow):
         self.bad_btn.clicked.connect(self.on_bad)
         
         #okay image/btn
-        okay_img = QLabel(self)
+        okay_img = QPushButton(self)
         okay_img.setGeometry(self.sw*630, self.sh*260, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "okay.jpeg")
-        okay_img.setStyleSheet("border-image : url(%s);" % currMood)
+        okay_img.setStyleSheet("border-image : url(" + currMood + ");")
+        okay_img.clicked.connect(self.on_okay)
         self.okay_btn = QPushButton("okay", self)
         self.okay_btn.setGeometry(self.sw*645, self.sh*355, self.sw*65, self.sh*20)
         self.okay_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
@@ -104,10 +107,11 @@ class MoodAnalyzerPg(QMainWindow):
         self.okay_btn.clicked.connect(self.on_okay)
         
         #happy image/btn
-        happy_img = QLabel(self)
+        happy_img = QPushButton(self)
         happy_img.setGeometry(self.sw*780, self.sh*260, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "happy.jpeg")
-        happy_img.setStyleSheet("border-image : url(%s);" % currMood)
+        happy_img.setStyleSheet("border-image : url(" + currMood + ");")
+        happy_img.clicked.connect(self.on_happy)
         self.happy_btn = QPushButton("happy", self)
         self.happy_btn.setGeometry(self.sw*795, self.sh*355, self.sw*65, self.sh*20)
         self.happy_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
@@ -115,10 +119,11 @@ class MoodAnalyzerPg(QMainWindow):
         self.happy_btn.clicked.connect(self.on_happy)
         
         #excited image/btn
-        excited_img = QLabel(self)
+        excited_img = QPushButton(self)
         excited_img.setGeometry(self.sw*630, self.sh*380, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "excited.jpeg")
-        excited_img.setStyleSheet("border-image : url(%s);" % currMood)
+        excited_img.setStyleSheet("border-image : url(" + currMood + ");")
+        excited_img.clicked.connect(self.on_excited)
         self.excited_btn = QPushButton("excited", self)
         self.excited_btn.setGeometry(self.sw*640, self.sh*475, self.sw*70, self.sh*20)
         self.excited_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
@@ -126,10 +131,11 @@ class MoodAnalyzerPg(QMainWindow):
         self.excited_btn.clicked.connect(self.on_excited)
         
         #love image/btn
-        love_img = QLabel(self)
+        love_img = QPushButton(self)
         love_img.setGeometry(self.sw*780, self.sh*380, self.sw*90, self.sh*90)
         currMood = path.join(path.join(path.dirname(__file__), "imgs"), "love.jpeg")
-        love_img.setStyleSheet("border-image : url(%s);" % currMood)
+        love_img.setStyleSheet("border-image : url(" + currMood + ");")
+        love_img.clicked.connect(self.on_love)
         self.love_btn = QPushButton("love", self)
         self.love_btn.setGeometry(self.sw*790, self.sh*475, self.sw*65, self.sh*20)
         self.love_btn.setStyleSheet("background-color: #99acff; font-weight: bold; border-radius:10px;")
