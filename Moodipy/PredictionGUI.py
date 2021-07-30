@@ -5,13 +5,20 @@ from screeninfo import get_monitors
 
 class PredictPG(QMainWindow):
     def __init__(self):
+        max_screen_width = 1536
+        min_screen_width = 1000
+
+        max_screen_height = 864
+        min_screen_height = 610
         super().__init__()
         self.title = "Popular Prediction"
         self.desktop = QApplication.desktop()
         self.left = 0
         self.top = 0
-        self.width = get_monitors()[0].width - 150
-        self.height = get_monitors()[0].height - 80
+        temp_width = get_monitors()[0].width * .5
+        self.width = max(min(temp_width, max_screen_width), min_screen_width)
+        temp_height = get_monitors()[0].height * .5
+        self.height = max(min(temp_height, max_screen_height), min_screen_height)
         self.initUI()
 
     def initUI(self):
@@ -42,8 +49,7 @@ class PredictPG(QMainWindow):
         listWidget.setStyleSheet("background-color:#b198f9; color: white ")
         
         #Just Test Tracks
-        tracks = {"Song1":"Artist 1", "Song2":"Artist 2", "Song3":"Artist 3", "Song4":"Artist 4","Song5":"Artist 5", "Song6":"Artist 6", "Song7":"Artist 7", "Song8":"Artist 8","Song9":"Artist 9", "Song10":"Artist 10", "Song11":"Artist 11", "Song12":"Artist 12"}
-       
+        tracks = Person.tracks
         num = 1
         for song, title in tracks.items():
             if num < 10:
