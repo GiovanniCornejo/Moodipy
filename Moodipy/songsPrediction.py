@@ -28,9 +28,7 @@ def songPredictions():
 
         user.add_to_playlist(playlist_id=playlist_id, playlist_tracks=prediction_songs)
 
-        print("checkpoint 3")
-
-        return prediction_songs
+        return tracks
 
     except(spotipy.exceptions.SpotifyException, requests.exceptions.HTTPError, spotipy.oauth2.SpotifyOauthError):
         return None
