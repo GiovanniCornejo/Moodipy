@@ -53,13 +53,16 @@ class MoodAnalyzerPg(QMainWindow):
         boxDesign.setGeometry(self.sw*570, self.sh*100, self.sw*350, self.sh*450)
         boxDesign.setStyleSheet("border: 30px solid; border-radius:60px; background-color: #99acff; border-color: #99acff")
         # OR label
-
         orLabel = QLabel("OR", self)
         orLabel.setAlignment(Qt.AlignCenter)
         orLabel.setGeometry(self.sw*460, self.sh*300, self.sw*60, self.sh*60)
         orLabel.setStyleSheet("border-radius: 30px; background-color: #99acff; border-color: #99acff; font-weight: bold")
         orLabel.setFont(QFont('Segoe UI', self.sw*12))
-
+        # Go Back btn
+        self.newbtn = QPushButton("Go Back", self)
+        self.newbtn.setStyleSheet("background-color: #99acff; font-weight: bold; border: 5px solid; border-color: white")
+        self.newbtn.setGeometry(self.sw * 400, self.sh * 565, self.sw * 180, self.sh * 40)
+        self.newbtn.clicked.connect(self.on_main)
 
         # Text submit button
         btn1 = QPushButton("submit", self)
@@ -138,7 +141,13 @@ class MoodAnalyzerPg(QMainWindow):
         btn2.clicked.connect(self.on_click2)
         btn2.setGeometry(self.sw*720, self.sh*500, self.sw*80, self.sh*20)
         btn2.setStyleSheet("background-color: #abbdff;border-radius:10px; ")
-
+    
+    def on_main(self):
+        from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.nextPg = DiscoverPG()
+        self.nextPg.show()
+        self.hide()
+    
     def on_click(self):
         Person.currentmood = find_mood(self.text.toPlainText())
         if Person.currentmood is None:
