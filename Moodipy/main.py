@@ -42,12 +42,12 @@ class MainWindow(QMainWindow):
         self.show()
 
     def main_window(self):
-        button = QPushButton(self)
-        button.setGeometry(self.sw*480, self.sh*450, self.sw*40, self.sh*20)
+        self.button = QPushButton(self)
+        self.button.setGeometry(self.sw*480, self.sh*450, self.sw*40, self.sh*20)
         arrow_img = path.join(path.join(path.dirname(__file__), "imgs"), "arrow.png")
         styleS = "border-image : url(" + arrow_img + ");"
-        button.setStyleSheet(styleS)
-        button.clicked.connect(self.nextPG)
+        self.button.setStyleSheet(styleS)
+        self.button.clicked.connect(self.nextPG)
 
         Person.setLabel(self, "Welcome to", True, self.sw*390, self.sh*200, self.sw*220, self.sh*35, self.sw*19, "white", False,'Consolas')
         Person.setLabel(self, "Moodipy", True, self.sw*380, self.sh*260, self.sw*230, self.sh*58, self.sw*35, "white", True, 'Segoe UI')
@@ -60,6 +60,7 @@ class MainWindow(QMainWindow):
         paint.drawEllipse(self.sw*270, self.sh*70, self.sw*450, self.sh*450)
 
     def nextPG(self):
+        self.button.setEnabled(False)
         userInfoPath = path.join(path.dirname(__file__), "UserInfo.txt")
         if os.path.isfile(userInfoPath):
             if os.stat(userInfoPath).st_size == 0:
