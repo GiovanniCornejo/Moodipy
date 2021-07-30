@@ -90,11 +90,12 @@ class ChoosePlaylistPG(QMainWindow):
 
     def on_change(self):
         self.currItem = self.listWidget.selectedItems()
+        rows = self.listWidget.selectedIndexes()
         currItems = self.currItem
         names = []
-        for item in currItems:
+        for i, item in enumerate(currItems):
             curr = str(item.text())
-            num = item.listWidget().currentRow() + 1
+            num = rows[i].row() + 1
             length = len(str(num))
             if num < 10:
                 length = length + 5
