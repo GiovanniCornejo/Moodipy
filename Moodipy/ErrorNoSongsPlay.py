@@ -52,12 +52,16 @@ class ErrorNoSgsPlay(QMainWindow):
 
     def on_new(self):
         from Moodipy.DiscoverPgGUI import DiscoverPG
+        self.tryAgainBtn.setEnabled(False)
+        self.newBtn.setEnabled(False)
         self.nextPg = DiscoverPG()
         self.nextPg.show()
         self.hide()
 
     def on_tryAgain(self):
         from Moodipy.ChoosePlaylistGUI import ChoosePlaylistPG
+        self.tryAgainBtn.setEnabled(False)
+        self.newBtn.setEnabled(False)
         Person.choice = "playlist"
         playlists = get_user_playlists()
         if playlists == "NO PLAYLISTS":
@@ -72,6 +76,10 @@ class ErrorNoSgsPlay(QMainWindow):
 
     def pop_up(self):
         msg = QMessageBox.question(self, 'Error', 'You have no public playlists, try adding some!', QMessageBox.Ok)
+        self.tryAgainBtn.setEnabled(True)
+        self.newBtn.setEnabled(True)
 
     def pop_up2(self):
         msg = QMessageBox.question(self, 'Error', 'Sorry, we have encountered a error. Please Try again later.', QMessageBox.Ok)
+        self.tryAgainBtn.setEnabled(True)
+        self.newBtn.setEnabled(True)
