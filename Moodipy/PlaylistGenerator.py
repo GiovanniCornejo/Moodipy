@@ -3,9 +3,10 @@ import requests.exceptions
 import spotipy
 from Moodipy.UserSummary import Person
 from random import sample
+import time
 
 
-def generatePlaylist():
+def generatePlaylist(loading_bar):
     
     try:
 
@@ -13,6 +14,11 @@ def generatePlaylist():
         Step 0: Get Users Liked Songs
         """
         user, client = Authorization()
+
+        for i in range(10):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
+
         user_songs = user.get_user_saved_tracks()
         if len(user_songs) < 250:
             user_songs = user.get_user_top_artists_tracks()
@@ -20,7 +26,11 @@ def generatePlaylist():
                 user_songs = user.get_user_top_tracks()
                 if len(user_songs) == 0:
                     return "NO SONGS"
-                
+
+        for i in range(10, 25):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
+
         if len(user_songs) > 300: # Check Random 300 in User Library
             user_songs = sample(user_songs, 300)
 
@@ -34,8 +44,17 @@ def generatePlaylist():
             first_emotion = Person.currentmood[0]
             second_emotion = Person.currentmood[1]
 
+        for i in range(25, 30):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
+
         emotion_tracks = user.get_user_emotion_tracks(client=client, user_tracks=user_songs, base_emotion=first_emotion,
                                                     second_emotion=second_emotion)
+
+        for i in range(30, 60):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
+
         if len(emotion_tracks) == 0:
             return "NO SONGS"
         
@@ -50,6 +69,9 @@ def generatePlaylist():
         for track in emotion_tracks:
             tracks[track['name']] = track['artists'][0]['name']
 
+            for i in range(60, 70):
+                time.sleep(0.01)
+                loading_bar.setValue(i)
 
         Person.playlistName = Person.setPlaylistName(Person, Person.moodLabel, Person.currentmood)
         playlist_name = Person.playlistName
@@ -59,10 +81,18 @@ def generatePlaylist():
 
         playlist_id = user.create_playlist(playlist_name=playlist_name, description=description)
 
+        for i in range(70, 80):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
+
         """
         Step 3: Add Songs to a Playlist
         """
         user.add_to_playlist(playlist_id=playlist_id, playlist_tracks=emotion_tracks)
+
+        for i in range(80, 100):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
 
         return tracks
     

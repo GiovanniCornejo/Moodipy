@@ -57,10 +57,9 @@ class LoadPredictPg(QMainWindow):
         from Moodipy.ErrorNoPop import ErrorNoPopSongs
         self.startBtn.setEnabled(False)
         self.newbtn.setEnabled(False)
-        for i in range(100):
-            time.sleep(0.01)
-            self.loadingBar.setValue(i)
-        Person.tracks = songPredictions()
+
+        Person.tracks = songPredictions(self.loadingBar)
+
         if Person.tracks == None:
             self.nextPg = ErrorPredictPG()
             self.nextPg.show()

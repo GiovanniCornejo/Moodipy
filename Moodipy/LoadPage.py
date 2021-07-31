@@ -59,11 +59,9 @@ class LoadPg(QMainWindow):
         from Moodipy.PlaylistGenerator import generatePlaylist
         self.startBtn.setEnabled(False)
         self.newbtn.setEnabled(False)
-        for i in range(100):
-            time.sleep(0.01)
-            self.loadingBar.setValue(i)
 
-        Person.tracks = generatePlaylist()
+        Person.tracks = generatePlaylist(self.loadingBar)
+
         if Person.tracks == None:
             self.nextPg = ErrorPG()
             self.nextPg.show()
