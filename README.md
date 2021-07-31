@@ -6,7 +6,7 @@ Uses sentiment analysis to create a playlist on spotify that matches someone's m
 ## Installation instructions
 
 ### Package name for PIP installation:
-* pip install Moodipy==0.126
+* pip install Moodipy==0.127
 ### Executable command:
 * Moodipy
 ### Link to repository:
