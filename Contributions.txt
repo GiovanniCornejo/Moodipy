@@ -10,7 +10,13 @@ Dates - Contribution - People
 6/11- 6/14 - Researched text analyzer libraries and worked on training - Oliver
 
 
+6/11 - Researched basic Spotify authorization process - Giovanni
+
+
 6/11 - Design framework and made images for GUI - Diana
+
+
+6/13-6/16 - Created playlist creation with Spotify library access- Giovanni
 
 
 6/14 - Tested GUI early stages - Giselle
@@ -22,6 +28,9 @@ Dates - Contribution - People
 6/22 - Tested GUI updates - Giselle, Giovanni
 
 
+6/23 - Tested converting sentiment analysis to usable Spotify data - Gio
+
+
 6/23 - Researched how to fix GUI resolution problem - Oliver
 
 
@@ -31,19 +40,31 @@ Dates - Contribution - People
 6/26 - Tested GUI - Giselle, Lazaro
 
 
+6/26 - 6/28 - Optimized and debugged each emotion filter from user library and playlist generation for emotion tracks - Gio
+
+
 6/27 - 6/28 - Debugging 403 spotipy error - Everyone
 
 
 6/25 - 6/28 - Researched/made pip setup files - Diana
 
 
-6/27 - 6/28 - Diana, Lazaro, Giselle
+6/27 - 6/28 - Tested pip/resolved issues -  Diana, Lazaro, Giselle
+
+
+7/10 - Added more efficient emotion filtering - Gio
 
 
 7/12 - Tested/Debugged GUI to find Edge Cases - Giselle
 
 
+7/14 - Tested functionality of using a public playlist instead of user liked songs - Gio
+
+
 7/16 - 7/24 - Debugged updated GUI in attempt to break it, in order to find Edge Cases - Giselle, Diana
+
+
+7/25 - Optimized prediction feature to reduce loading times - Giselle, Giovanni, Diana
 
 
 7/26 - Tested/Debugged prediction feature - Giselle, Giovanni, Diana
@@ -53,4 +74,7 @@ Dates - Contribution - People
 
 
 7/28 - 7/30 - Researched/trained/tested new emotions csv in order to update the moodAnalyzer to accept shorter sentences. - Oliver
+
+
+7/26-7/28 - Research/resolved pip installation issues for the user - Lazaro, Diana
 
