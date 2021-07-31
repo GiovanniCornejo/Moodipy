@@ -69,9 +69,9 @@ def generatePlaylist(loading_bar):
         for track in emotion_tracks:
             tracks[track['name']] = track['artists'][0]['name']
 
-            for i in range(60, 70):
-                time.sleep(0.01)
-                loading_bar.setValue(i)
+        for i in range(60, 70):
+            time.sleep(0.01)
+            loading_bar.setValue(i)
 
         Person.playlistName = Person.setPlaylistName(Person, Person.moodLabel, Person.currentmood)
         playlist_name = Person.playlistName
